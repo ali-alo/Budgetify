@@ -1,0 +1,19 @@
+a {
+    margin-right: 10px;
+    font-size: 20px;
+    color: blueviolet;
+}
+
+a:hover {
+    color: tomato;
+}
+
+button {
+    cursor: pointer;
+}
+
+button:hover {
+    background-color:bisque;
+}
+
+/* More styles will be implemented later */

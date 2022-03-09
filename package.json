@@ -1,0 +1,27 @@
+{
+  "name": "budgetify",
+  "version": "1.0.0",
+  "description": "Budgetify — the only app you need to track your expenses",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alialo2001/Budgetify.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alialo2001/Budgetify/issues"
+  },
+  "homepage": "https://github.com/alialo2001/Budgetify#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
