@@ -15,7 +15,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Skot\",\r\n    \"login\": \"Travik\",\r\n    \"password\": \"awwwq\",\r\n    \"passwordConfirm\": \"awwwq\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Dustin\",\r\n    \"login\": \"Devoiges\",\r\n    \"password\": \"22552\",\r\n    \"passwordConfirm\": \"22552\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -43,7 +43,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/admin/user/mhl1ml11kt",
+							"raw": "http://localhost:3000/admin/user/opfa68fqijq",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -52,7 +52,7 @@
 							"path": [
 								"admin",
 								"user",
-								"mhl1ml11kt"
+								"opfa68fqijq"
 							]
 						}
 					},
@@ -65,7 +65,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Lola\",\r\n    \"login\": \"NigmatovaAmatova\",\r\n    \"balance\": \"7777\",\r\n    \"password\": \"555333\",\r\n    \"passwordConfirm\": \"555333\",\r\n    \"incomes\": [],\r\n    \"expenses\": [],\r\n    \"incomeCategories\": [],\r\n    \"expenseCategories\": []\r\n}",
+							"raw": "{\r\n    \"name\": \"Dreddy\",\r\n    \"login\": \"Isztranov\",\r\n    \"balance\": \"7777\",\r\n    \"password\": \"555333\",\r\n    \"passwordConfirm\": \"555333\",\r\n    \"incomes\": [],\r\n    \"expenses\": [],\r\n    \"categories\": []\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -73,7 +73,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/admin/user/mhl1ml11kt/edit",
+							"raw": "http://localhost:3000/admin/user/opfa68fqijq/edit",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -82,7 +82,7 @@
 							"path": [
 								"admin",
 								"user",
-								"mhl1ml11kt",
+								"opfa68fqijq",
 								"edit"
 							]
 						}
@@ -95,7 +95,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/admin/user/lkpm7xzg7if",
+							"raw": "http://localhost:3000/admin/user/uwpdfez1dd",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -104,7 +104,7 @@
 							"path": [
 								"admin",
 								"user",
-								"lkpm7xzg7if"
+								"uwpdfez1dd"
 							]
 						}
 					},
@@ -129,35 +129,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "User Sign In (NO Auth Yet)",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"login\": \"davias2\",\r\n    \"password\": \"asdfa\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/user/",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"user",
-								""
-							]
-						}
-					},
-					"response": []
 				}
 			]
 		},
@@ -170,7 +141,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/user/mhl1ml11kt/expenses",
+							"raw": "http://localhost:3000/user/opfa68fqijq/expenses",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -178,7 +149,7 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"mhl1ml11kt",
+								"opfa68fqijq",
 								"expenses"
 							]
 						}
@@ -192,7 +163,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"amount\": 1300,\r\n    \"category\": \"Rent\",\r\n    \"description\": \"Renting the apartment in February\"\r\n}",
+							"raw": "{\r\n    \"amount\": 2700,\r\n    \"category\": \"Laptop\",\r\n    \"description\": \"New Laptop\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -200,7 +171,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/user/mhl1ml11kt/expense-create",
+							"raw": "http://localhost:3000/user/opfa68fqijq/expense-create",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -208,7 +179,7 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"mhl1ml11kt",
+								"opfa68fqijq",
 								"expense-create"
 							]
 						}
@@ -230,7 +201,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/user/mhl1ml11kt/expense/2",
+							"raw": "http://localhost:3000/user/opfa68fqijq/expense/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -238,7 +209,7 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"mhl1ml11kt",
+								"opfa68fqijq",
 								"expense",
 								"2"
 							]
@@ -252,7 +223,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/user/mhl1ml11kt/expense-delete/21",
+							"raw": "http://localhost:3000/user/opfa68fqijq/expense-delete/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -260,9 +231,9 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"mhl1ml11kt",
+								"opfa68fqijq",
 								"expense-delete",
-								"21"
+								"3"
 							]
 						}
 					},
@@ -280,7 +251,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"amount\": \"4200\",\r\n        \"category\": \"Salary\",\r\n        \"description\": \"Salary for February\"\r\n}",
+							"raw": "{\r\n        \"amount\": \"1200\",\r\n        \"category\": \"Bloggin\",\r\n        \"description\": \"Money from having a youtube channel\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -288,7 +259,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/user/mhl1ml11kt/income-create",
+							"raw": "http://localhost:3000/user/opfa68fqijq/income-create",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -296,7 +267,7 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"mhl1ml11kt",
+								"opfa68fqijq",
 								"income-create"
 							]
 						}
@@ -309,7 +280,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/user/mhl1ml11kt/incomes",
+							"raw": "http://localhost:3000/user/opfa68fqijq/incomes",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -317,7 +288,7 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"mhl1ml11kt",
+								"opfa68fqijq",
 								"incomes"
 							]
 						}
@@ -339,7 +310,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/user/mhl1ml11kt/income/2",
+							"raw": "http://localhost:3000/user/opfa68fqijq/income/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -347,7 +318,7 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"mhl1ml11kt",
+								"opfa68fqijq",
 								"income",
 								"2"
 							]
@@ -361,7 +332,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/user/mhl1ml11kt/income-delete/3",
+							"raw": "http://localhost:3000/user/opfa68fqijq/income-delete/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -369,7 +340,7 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"mhl1ml11kt",
+								"opfa68fqijq",
 								"income-delete",
 								"3"
 							]
@@ -380,15 +351,15 @@
 			]
 		},
 		{
-			"name": "Income Category CRUD",
+			"name": "Category CRUD",
 			"item": [
 				{
-					"name": "Get All Income Categories",
+					"name": "Get All Categories",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/user/mhl1ml11kt/income-categories",
+							"raw": "http://localhost:3000/user/opfa68fqijq/categories",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -396,7 +367,111 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"mhl1ml11kt",
+								"opfa68fqijq",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Category",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Food\",\r\n    \"type\": \"Expense\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/opfa68fqijq/category-create",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"opfa68fqijq",
+								"category-create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Freelance\",\r\n    \"type\": \"Income\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/opfa68fqijq/category/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"opfa68fqijq",
+								"category",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Category",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/user/opfa68fqijq/category-delete/4",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"opfa68fqijq",
+								"category-delete",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Income Categories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:3000/user/opfa68fqijq/income-categories",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"opfa68fqijq",
 								"income-categories"
 							]
 						}
@@ -404,100 +479,12 @@
 					"response": []
 				},
 				{
-					"name": "Create Income Category",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Salary\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/user/mhl1ml11kt/income-category-create",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"user",
-								"mhl1ml11kt",
-								"income-category-create"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Income Category",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Freelance\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/user/mhl1ml11kt/income-category/2",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"user",
-								"mhl1ml11kt",
-								"income-category",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Income Category",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/user/mhl1ml11kt/income-category-delete/3",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"user",
-								"mhl1ml11kt",
-								"income-category-delete",
-								"3"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Expense Category CRUD",
-			"item": [
-				{
 					"name": "Get All Expense Categories",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/user/mhl1ml11kt/expense-categories",
+							"raw": "http://localhost:3000/user/opfa68fqijq/expense-categories",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -505,91 +492,8 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"mhl1ml11kt",
+								"opfa68fqijq",
 								"expense-categories"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create Expense Category",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Rent\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/user/mhl1ml11kt/expense-category-create",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"user",
-								"mhl1ml11kt",
-								"expense-category-create"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Expense Category",
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Food\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/user/mhl1ml11kt/expense-category/2",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"user",
-								"mhl1ml11kt",
-								"expense-category",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete Expense Category",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "http://localhost:3000/user/mhl1ml11kt/expense-category-delete/3",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"user",
-								"mhl1ml11kt",
-								"expense-category-delete",
-								"3"
 							]
 						}
 					},
