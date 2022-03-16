@@ -1,4 +1,5 @@
 const fs = require("fs");
+const bcrypt = require("bcrypt");
 
 class userRepository {
   constructor() {
@@ -9,13 +10,27 @@ class userRepository {
     });
   }
 
+  signIn(login, password, callback) {
+    const user = this.usersDb.find(
+      (user) =>
+        user.login === login && bcrypt.compareSync(password, user.password)
+    );
+    callback(user);
+  }
+
+  findByLogin(login) {
+    return this.usersDb.find((user) => user.login === login);
+  }
+
   create(user, passwordConfirm, callback) {
     if (this.areInputsValid(user, passwordConfirm)) {
       user.id = this.generateRandomId();
+      user.password = bcrypt.hashSync(passwordConfirm, 10);
       user.balance = 0;
       user.incomes = [];
       user.expenses = [];
       user.categories = [];
+      user.isAdmin = false;
       this.usersDb.push(user);
       this.updateDB(callback);
     } else callback(true);
@@ -23,6 +38,8 @@ class userRepository {
 
   update(userUpdated, passwordConfirm, callback) {
     if (this.areInputsValid(userUpdated, passwordConfirm)) {
+      userUpdated.password = bcrypt.hashSync(passwordConfirm, 10);
+      userUpdated.isAdmin = false;
       const index = this.getIndex(userUpdated.id, callback);
       this.usersDb[index] = userUpdated;
       this.updateDB(callback);
@@ -44,7 +61,7 @@ class userRepository {
   }
 
   getById(id) {
-    return this.usersDb.filter((user) => user.id === id);
+    return this.usersDb.find((user) => user.id === id);
   }
 
   getIndex(id, callback) {

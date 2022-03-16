@@ -4,18 +4,32 @@ const router = express.Router();
 const { userRepository } = require("../public/js/user_repository");
 const userRepo = new userRepository();
 
+const { adminGuard } = require("../guards");
+const { jwtCallback } = require("../passport");
+
+const passport = require("passport");
+const JwtStrategy = require("passport-jwt").Strategy;
+const ExtractJwt = require("passport-jwt").ExtractJwt;
+const opts = {
+  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+  secretOrKey: process.env.JWT_SECRET_TOKEN,
+};
+passport.use(new JwtStrategy(opts, jwtCallback));
+const auth = passport.authenticate("jwt", { session: false });
+router.use(passport.initialize());
+
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
-router.get("/", (req, res) => {
+router.get("/", auth, adminGuard, (req, res) => {
   res.send("Welcome to admin home page");
 });
 
-router.get("/view-users", (req, res) => {
+router.get("/view-users", auth, adminGuard, (req, res) => {
   res.json(userRepo.getAll());
 });
 
-router.post("/create-user", (req, res) => {
+router.post("/create-user", auth, adminGuard, (req, res) => {
   const user = {
     name: req.body.name,
     login: req.body.login,
@@ -32,10 +46,10 @@ router.post("/create-user", (req, res) => {
 
 router
   .route("/user/:id")
-  .get((req, res) => {
+  .get(auth, adminGuard, (req, res) => {
     res.json(userRepo.getById(req.params.id));
   })
-  .delete((req, res) => {
+  .delete(auth, adminGuard, (req, res) => {
     userRepo.delete(req.params.id, (err) => {
       if (err)
         res.status(404).json({ message: "User with this id does not exist" });
@@ -43,7 +57,7 @@ router
     });
   });
 
-router.put("/user/:id/edit", (req, res) => {
+router.put("/user/:id/edit", auth, adminGuard, (req, res) => {
   const userUpdated = {
     id: req.params.id,
     name: req.body.name,
