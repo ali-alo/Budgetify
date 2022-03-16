@@ -1,9 +1,10 @@
 const fs = require("fs");
 
+const { getUserById } = require("./user_repository");
+
 class incomeRepository {
   constructor() {
     this.usersDb = [];
-    this.user = [];
 
     fs.readFile("./data/users.json", (err, data) => {
       if (!err) this.usersDb = JSON.parse(data);
@@ -11,27 +12,30 @@ class incomeRepository {
   }
 
   create(userId, income, callback) {
-    const user = this.getUserById(userId);
+    const user = getUserById(this.usersDb, userId);
     income.id = this.setId(user);
+    income.amount = parseFloat(income.amount);
     user.incomes.push(income);
     user.balance += income.amount;
     this.updateDB(callback);
   }
 
   getAll(userId) {
-    const user = this.getUserById(userId);
+    const user = getUserById(this.usersDb, userId);
     return user.incomes;
   }
 
   getById(userId, incomeId) {
-    const user = this.getUserById(userId);
+    const user = getUserById(this.usersDb, userId);
     return user.incommes.find((income) => income.id === incomeId);
   }
 
   update(userId, incomeUpdated, callback) {
-    const user = this.getUserById(userId);
-    incomeUpdated.id = parseInt(incomeUpdated.id);
+    const user = getUserById(this.usersDb, userId);
 
+    // change the data type from string to numeric
+    incomeUpdated.id = parseInt(incomeUpdated.id);
+    incomeUpdated.amount = parseFloat(incomeUpdated.amount);
     const index = user.incomes.findIndex((income) => {
       return income.id === incomeUpdated.id;
     });
@@ -42,7 +46,7 @@ class incomeRepository {
   }
 
   delete(userId, incomeId, callback) {
-    const user = this.getUserById(userId);
+    const user = getUserById(this.usersDb, userId);
     const index = user.incomes.findIndex((income) => income.id == incomeId);
     if (index >= 0) {
       user.incomes.splice(index, 1);
@@ -53,10 +57,6 @@ class incomeRepository {
   setId(user) {
     if (user.incomes.length === 0) return 1;
     else return user.incomes[user.incomes.length - 1].id + 1;
-  }
-
-  getUserById(id) {
-    return this.usersDb.find((user) => user.id === id);
   }
 
   updateDB(callback) {

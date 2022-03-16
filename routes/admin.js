@@ -5,18 +5,7 @@ const { userRepository } = require("../public/js/user_repository");
 const userRepo = new userRepository();
 
 const { adminGuard } = require("../guards");
-const { jwtCallback } = require("../passport");
-
-const passport = require("passport");
-const JwtStrategy = require("passport-jwt").Strategy;
-const ExtractJwt = require("passport-jwt").ExtractJwt;
-const opts = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.JWT_SECRET_TOKEN,
-};
-passport.use(new JwtStrategy(opts, jwtCallback));
-const auth = passport.authenticate("jwt", { session: false });
-router.use(passport.initialize());
+const { auth } = require("../auth");
 
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));

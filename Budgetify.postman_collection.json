@@ -11,11 +11,21 @@
 				{
 					"name": "Create User",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Im5sN2VlMm52N3ZiIiwibmFtZSI6IklubmF0aGFuIiwibG9naW4iOiJpbnNhdzIiLCJpYXQiOjE2NDc0NjI3NDQsImV4cCI6MTY0NzQ2OTk0NH0.gPnVjSdvrAvYQITuA4wkYE9St2Qq4PRYUlJUCO_6yu8",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Dustin\",\r\n    \"login\": \"Devoiges\",\r\n    \"password\": \"22552\",\r\n    \"passwordConfirm\": \"22552\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Chris DJ\",\r\n    \"login\": \"chrisq23\",\r\n    \"password\": \"12rews\",\r\n    \"passwordConfirm\": \"12rews\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -40,10 +50,20 @@
 				{
 					"name": "Get User By Id",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Im5sN2VlMm52N3ZiIiwibmFtZSI6IklubmF0aGFuIiwibG9naW4iOiJpbnNhdzIiLCJpYXQiOjE2NDc0NjI3NDQsImV4cCI6MTY0NzQ2OTk0NH0.gPnVjSdvrAvYQITuA4wkYE9St2Qq4PRYUlJUCO_6yu8",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/admin/user/opfa68fqijq",
+							"raw": "http://localhost:3000/admin/user/i3obue3c7p",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -52,7 +72,7 @@
 							"path": [
 								"admin",
 								"user",
-								"opfa68fqijq"
+								"i3obue3c7p"
 							]
 						}
 					},
@@ -61,6 +81,16 @@
 				{
 					"name": "Update User",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Im5sN2VlMm52N3ZiIiwibmFtZSI6IklubmF0aGFuIiwibG9naW4iOiJpbnNhdzIiLCJpYXQiOjE2NDc0NjI3NDQsImV4cCI6MTY0NzQ2OTk0NH0.gPnVjSdvrAvYQITuA4wkYE9St2Qq4PRYUlJUCO_6yu8",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -73,7 +103,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/admin/user/opfa68fqijq/edit",
+							"raw": "http://localhost:3000/admin/user/i3obue3c7p/edit",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -82,7 +112,7 @@
 							"path": [
 								"admin",
 								"user",
-								"opfa68fqijq",
+								"i3obue3c7p",
 								"edit"
 							]
 						}
@@ -92,10 +122,20 @@
 				{
 					"name": "Delete User",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Im5sN2VlMm52N3ZiIiwibmFtZSI6IklubmF0aGFuIiwibG9naW4iOiJpbnNhdzIiLCJpYXQiOjE2NDc0NjI3NDQsImV4cCI6MTY0NzQ2OTk0NH0.gPnVjSdvrAvYQITuA4wkYE9St2Qq4PRYUlJUCO_6yu8",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/admin/user/uwpdfez1dd",
+							"raw": "http://localhost:3000/admin/user/39d0abn7gy",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -104,7 +144,7 @@
 							"path": [
 								"admin",
 								"user",
-								"uwpdfez1dd"
+								"39d0abn7gy"
 							]
 						}
 					},
@@ -113,6 +153,16 @@
 				{
 					"name": "Get All Users",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Im5sN2VlMm52N3ZiIiwibmFtZSI6IklubmF0aGFuIiwibG9naW4iOiJpbnNhdzIiLCJpYXQiOjE2NDc0NjI3NDQsImV4cCI6MTY0NzQ2OTk0NH0.gPnVjSdvrAvYQITuA4wkYE9St2Qq4PRYUlJUCO_6yu8",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -138,10 +188,20 @@
 				{
 					"name": "Get All Expenses",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Imkzb2J1ZTNjN3AiLCJuYW1lIjoiRHJlZGR5IiwibG9naW4iOiJJc3p0cmFub3YiLCJpYXQiOjE2NDc0NjMxMjIsImV4cCI6MTY0NzQ3MDMyMn0.QBNtR4ubY6dA1lpdPuR0kEz8_bCig4YdDMNlG42-zRo",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/user/opfa68fqijq/expenses",
+							"raw": "http://localhost:3000/user/i3obue3c7p/expenses",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -149,7 +209,7 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"opfa68fqijq",
+								"i3obue3c7p",
 								"expenses"
 							]
 						}
@@ -159,6 +219,16 @@
 				{
 					"name": "Create Expense",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Imkzb2J1ZTNjN3AiLCJuYW1lIjoiRHJlZGR5IiwibG9naW4iOiJJc3p0cmFub3YiLCJpYXQiOjE2NDc0NjMxMjIsImV4cCI6MTY0NzQ3MDMyMn0.QBNtR4ubY6dA1lpdPuR0kEz8_bCig4YdDMNlG42-zRo",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -171,7 +241,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/user/opfa68fqijq/expense-create",
+							"raw": "http://localhost:3000/user/i3obue3c7p/expense-create",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -179,7 +249,7 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"opfa68fqijq",
+								"i3obue3c7p",
 								"expense-create"
 							]
 						}
@@ -189,6 +259,16 @@
 				{
 					"name": "Update Expense",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Imkzb2J1ZTNjN3AiLCJuYW1lIjoiRHJlZGR5IiwibG9naW4iOiJJc3p0cmFub3YiLCJpYXQiOjE2NDc0NjMxMjIsImV4cCI6MTY0NzQ3MDMyMn0.QBNtR4ubY6dA1lpdPuR0kEz8_bCig4YdDMNlG42-zRo",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
@@ -201,7 +281,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/user/opfa68fqijq/expense/2",
+							"raw": "http://localhost:3000/user/i3obue3c7p/expense/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -209,7 +289,7 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"opfa68fqijq",
+								"i3obue3c7p",
 								"expense",
 								"2"
 							]
@@ -220,10 +300,20 @@
 				{
 					"name": "Delete Expense",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Imkzb2J1ZTNjN3AiLCJuYW1lIjoiRHJlZGR5IiwibG9naW4iOiJJc3p0cmFub3YiLCJpYXQiOjE2NDc0NjMxMjIsImV4cCI6MTY0NzQ3MDMyMn0.QBNtR4ubY6dA1lpdPuR0kEz8_bCig4YdDMNlG42-zRo",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/user/opfa68fqijq/expense-delete/3",
+							"raw": "http://localhost:3000/user/i3obue3c7p/expense-delete/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -231,7 +321,7 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"opfa68fqijq",
+								"i3obue3c7p",
 								"expense-delete",
 								"3"
 							]
@@ -247,11 +337,21 @@
 				{
 					"name": "Create Income",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Imkzb2J1ZTNjN3AiLCJuYW1lIjoiRHJlZGR5IiwibG9naW4iOiJJc3p0cmFub3YiLCJpYXQiOjE2NDc0NjMxMjIsImV4cCI6MTY0NzQ3MDMyMn0.QBNtR4ubY6dA1lpdPuR0kEz8_bCig4YdDMNlG42-zRo",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n        \"amount\": \"1200\",\r\n        \"category\": \"Bloggin\",\r\n        \"description\": \"Money from having a youtube channel\"\r\n}",
+							"raw": "{\r\n        \"amount\": \"450\",\r\n        \"category\": \"Trading\",\r\n        \"description\": \"Alpari Trading Income\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -259,7 +359,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/user/opfa68fqijq/income-create",
+							"raw": "http://localhost:3000/user/i3obue3c7p/income-create",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -267,7 +367,7 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"opfa68fqijq",
+								"i3obue3c7p",
 								"income-create"
 							]
 						}
@@ -277,10 +377,20 @@
 				{
 					"name": "Get All Incomes",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Imkzb2J1ZTNjN3AiLCJuYW1lIjoiRHJlZGR5IiwibG9naW4iOiJJc3p0cmFub3YiLCJpYXQiOjE2NDc0NjMxMjIsImV4cCI6MTY0NzQ3MDMyMn0.QBNtR4ubY6dA1lpdPuR0kEz8_bCig4YdDMNlG42-zRo",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/user/opfa68fqijq/incomes",
+							"raw": "http://localhost:3000/user/i3obue3c7p/incomes",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -288,7 +398,7 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"opfa68fqijq",
+								"i3obue3c7p",
 								"incomes"
 							]
 						}
@@ -298,11 +408,21 @@
 				{
 					"name": "Update Income",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Imkzb2J1ZTNjN3AiLCJuYW1lIjoiRHJlZGR5IiwibG9naW4iOiJJc3p0cmFub3YiLCJpYXQiOjE2NDc0NjMxMjIsImV4cCI6MTY0NzQ3MDMyMn0.QBNtR4ubY6dA1lpdPuR0kEz8_bCig4YdDMNlG42-zRo",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"amount\": \"900\",\r\n    \"category\": \"Freelance\",\r\n    \"description\": \"Building websites on UpWork\"\r\n}",
+							"raw": "{\r\n    \"amount\": \"4700\",\r\n    \"category\": \"Salary\",\r\n    \"description\": \"Salary for February\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -310,7 +430,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/user/opfa68fqijq/income/2",
+							"raw": "http://localhost:3000/user/i3obue3c7p/income/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -318,9 +438,9 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"opfa68fqijq",
+								"i3obue3c7p",
 								"income",
-								"2"
+								"3"
 							]
 						}
 					},
@@ -329,10 +449,20 @@
 				{
 					"name": "Delete Income",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Imkzb2J1ZTNjN3AiLCJuYW1lIjoiRHJlZGR5IiwibG9naW4iOiJJc3p0cmFub3YiLCJpYXQiOjE2NDc0NjMxMjIsImV4cCI6MTY0NzQ3MDMyMn0.QBNtR4ubY6dA1lpdPuR0kEz8_bCig4YdDMNlG42-zRo",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/user/opfa68fqijq/income-delete/3",
+							"raw": "http://localhost:3000/user/i3obue3c7p/income-delete/3",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -340,7 +470,7 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"opfa68fqijq",
+								"i3obue3c7p",
 								"income-delete",
 								"3"
 							]
@@ -356,10 +486,20 @@
 				{
 					"name": "Get All Categories",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Imkzb2J1ZTNjN3AiLCJuYW1lIjoiRHJlZGR5IiwibG9naW4iOiJJc3p0cmFub3YiLCJpYXQiOjE2NDc0NjMxMjIsImV4cCI6MTY0NzQ3MDMyMn0.QBNtR4ubY6dA1lpdPuR0kEz8_bCig4YdDMNlG42-zRo",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/user/opfa68fqijq/categories",
+							"raw": "http://localhost:3000/user/i3obue3c7p/categories",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -367,7 +507,7 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"opfa68fqijq",
+								"i3obue3c7p",
 								"categories"
 							]
 						}
@@ -377,37 +517,17 @@
 				{
 					"name": "Create Category",
 					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Food\",\r\n    \"type\": \"Expense\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Imkzb2J1ZTNjN3AiLCJuYW1lIjoiRHJlZGR5IiwibG9naW4iOiJJc3p0cmFub3YiLCJpYXQiOjE2NDc0NjMxMjIsImV4cCI6MTY0NzQ3MDMyMn0.QBNtR4ubY6dA1lpdPuR0kEz8_bCig4YdDMNlG42-zRo",
+									"type": "string"
 								}
-							}
-						},
-						"url": {
-							"raw": "http://localhost:3000/user/opfa68fqijq/category-create",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"user",
-								"opfa68fqijq",
-								"category-create"
 							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update Category",
-					"request": {
-						"method": "PUT",
+						},
+						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
@@ -419,7 +539,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:3000/user/opfa68fqijq/category/2",
+							"raw": "http://localhost:3000/user/i3obue3c7p/category-create",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -427,9 +547,49 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"opfa68fqijq",
+								"i3obue3c7p",
+								"category-create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Category",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Imkzb2J1ZTNjN3AiLCJuYW1lIjoiRHJlZGR5IiwibG9naW4iOiJJc3p0cmFub3YiLCJpYXQiOjE2NDc0NjMxMjIsImV4cCI6MTY0NzQ3MDMyMn0.QBNtR4ubY6dA1lpdPuR0kEz8_bCig4YdDMNlG42-zRo",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Night Hand Work\",\r\n    \"type\": \"Income\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/user/i3obue3c7p/category/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"user",
+								"i3obue3c7p",
 								"category",
-								"2"
+								"7"
 							]
 						}
 					},
@@ -438,10 +598,20 @@
 				{
 					"name": "Delete Category",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Imkzb2J1ZTNjN3AiLCJuYW1lIjoiRHJlZGR5IiwibG9naW4iOiJJc3p0cmFub3YiLCJpYXQiOjE2NDc0NjMxMjIsImV4cCI6MTY0NzQ3MDMyMn0.QBNtR4ubY6dA1lpdPuR0kEz8_bCig4YdDMNlG42-zRo",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/user/opfa68fqijq/category-delete/4",
+							"raw": "http://localhost:3000/user/i3obue3c7p/category-delete/7",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -449,9 +619,9 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"opfa68fqijq",
+								"i3obue3c7p",
 								"category-delete",
-								"4"
+								"7"
 							]
 						}
 					},
@@ -460,10 +630,20 @@
 				{
 					"name": "Get All Income Categories",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Imkzb2J1ZTNjN3AiLCJuYW1lIjoiRHJlZGR5IiwibG9naW4iOiJJc3p0cmFub3YiLCJpYXQiOjE2NDc0NjMxMjIsImV4cCI6MTY0NzQ3MDMyMn0.QBNtR4ubY6dA1lpdPuR0kEz8_bCig4YdDMNlG42-zRo",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/user/opfa68fqijq/income-categories",
+							"raw": "http://localhost:3000/user/i3obue3c7p/income-categories",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -471,7 +651,7 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"opfa68fqijq",
+								"i3obue3c7p",
 								"income-categories"
 							]
 						}
@@ -481,10 +661,20 @@
 				{
 					"name": "Get All Expense Categories",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Imkzb2J1ZTNjN3AiLCJuYW1lIjoiRHJlZGR5IiwibG9naW4iOiJJc3p0cmFub3YiLCJpYXQiOjE2NDc0NjMxMjIsImV4cCI6MTY0NzQ3MDMyMn0.QBNtR4ubY6dA1lpdPuR0kEz8_bCig4YdDMNlG42-zRo",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:3000/user/opfa68fqijq/expense-categories",
+							"raw": "http://localhost:3000/user/i3obue3c7p/expense-categories",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -492,7 +682,7 @@
 							"port": "3000",
 							"path": [
 								"user",
-								"opfa68fqijq",
+								"i3obue3c7p",
 								"expense-categories"
 							]
 						}
@@ -504,15 +694,56 @@
 		{
 			"name": "Home Page",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoiV2lsbGlhbSIsImxvZ2luIjoid2lsbHNpcTMyIiwicGFzc3dvcmQiOiIkMmIkMTAkVzBzTi4zWkhUNXdFS1ZaQjZKSXFHZWxTQUxEN0VGcVVHdHpvRXpKR3J0bWN3LjBNZnZ6TGUiLCJpZCI6ImNqYm45aTlpc2siLCJiYWxhbmNlIjowLCJpbmNvbWVzIjpbXSwiZXhwZW5zZXMiOltdLCJjYXRlZ29yaWVzIjpbXSwidG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0luUjVjQ0k2SWtwWFZDSjkuZXlKdVlXMWxJam9pVjJsc2JHbGhiU0lzSW14dloybHVJam9pZDJsc2JITnBjVE15SWl3aWNHRnpjM2R2Y21RaU9pSWtNbUlrTVRBa1Z6QnpUaTR6V2toVU5YZEZTMVphUWpaS1NYRkhaV3hUUVV4RU4wVkdjVlZIZEhwdlJYcEtSM0owYldOM0xqQk5ablo2VEdVaUxDSnBaQ0k2SW1OcVltNDVhVGxwYzJzaUxDSmlZV3hoYm1ObElqb3dMQ0pwYm1OdmJXVnpJanBiWFN3aVpYaHdaVzV6WlhNaU9sdGRMQ0pqWVhSbFoyOXlhV1Z6SWpwYlhTd2lhV0YwSWpveE5qUTNOREUzTVRZNUxDSmxlSEFpT2pFMk5EYzBNVGN4TnpsOS5pcnJjSkg4bjBKRUtZUVl2b3NpX1BHMGRxMkx4Q3gzR1RicXhTRVhxMzkwIiwiaWF0IjoxNjQ3NDE3MTkxLCJleHAiOjE2NDc0MTcyMDF9.2kjJD-F0mgNVozTTN2rDFYdvJI4OHf1aaujxGnRYdr8",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000",
+					"raw": "http://localhost:3000/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
-					"port": "3000"
+					"port": "3000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sign In",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"login\": \"Isztranov\",\r\n    \"password\": \"555333\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/sign-in",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"sign-in"
+					]
 				}
 			},
 			"response": []

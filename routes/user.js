@@ -14,18 +14,7 @@ router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
 const { userGuard } = require("../guards");
-const { jwtCallback } = require("../passport");
-
-const passport = require("passport");
-const JwtStrategy = require("passport-jwt").Strategy;
-const ExtractJwt = require("passport-jwt").ExtractJwt;
-const opts = {
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.JWT_SECRET_TOKEN,
-};
-passport.use(new JwtStrategy(opts, jwtCallback));
-const auth = passport.authenticate("jwt", { session: false });
-router.use(passport.initialize());
+const { auth } = require("../auth");
 
 router.get("/", auth, userGuard, (req, res) => {
   res.send("Welcome to user home page");

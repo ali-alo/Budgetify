@@ -1,1 +1,58 @@
-[{"name":"Skot","login":"Travik","password":"awwwq","id":"uvuqxuuucyi","balance":0,"incomes":[],"expenses":[],"incomeCategories":[],"expenseCategories":[]},{"id":"opfa68fqijq","name":"Dreddy","login":"Isztranov","balance":"5077450","password":"555333","incomes":[],"expenses":[{"amount":2700,"category":"Laptop","description":"New Laptop","id":1}],"categories":[{"name":"Salary","type":"Income","id":1},{"id":2,"name":"Freelance","type":"Income"},{"name":"Rent","type":"Expense","id":3},{"name":"Trading","type":"Expense","id":4}]},{"name":"Dustin","login":"Devoiges","password":"22552","id":"mcfn0g8wbzj","balance":0,"incomes":[],"expenses":[],"categories":[]},{"name":"William","login":"willsiq32","password":"$2b$10$W0sN.3ZHT5wEKVZB6JIqGelSALD7EFqUGtzoEzJGrtmcw.0MfvzLe","id":"cjbn9i9isk","balance":0,"incomes":[],"expenses":[],"categories":[]},{"name":"Innathan","login":"insaw2","password":"$2b$10$/MKV47luMo4T3HhDoqcFl.VuWkz10gxycUVgf/OgkQSVfFrkDcBiG","id":"nl7ee2nv7vb","balance":0,"incomes":[],"expenses":[],"categories":[],"isAdmin":true}]
+[
+  {
+    "name": "Innathan",
+    "login": "insaw2",
+    "password": "$2b$10$/MKV47luMo4T3HhDoqcFl.VuWkz10gxycUVgf/OgkQSVfFrkDcBiG",
+    "id": "nl7ee2nv7vb",
+    "isAdmin": true
+  },
+  {
+    "id": "i3obue3c7p",
+    "name": "Dreddy",
+    "login": "Isztranov",
+    "balance": 2424.7,
+    "password": "$2b$10$XSwgMEMSpqiAhJBkTcytBu6WrJbEjX/kKNtCPMYtZ5F5vlXFxCGG6",
+    "incomes": [
+      {
+        "amount": 450,
+        "category": "Trading",
+        "description": "Alpari Trading Income",
+        "id": 1
+      },
+      {
+        "id": 2,
+        "amount": 4700,
+        "category": "Salary",
+        "description": "Salary for February"
+      }
+    ],
+    "expenses": [
+      {
+        "amount": 2700,
+        "category": "Laptop",
+        "description": "New Laptop",
+        "id": 1
+      },
+      { "id": 2, "amount": 25.3, "category": "Food", "description": "Lunch" }
+    ],
+    "categories": [
+      { "name": "Trading", "type": "Income", "id": 1 },
+      { "name": "Salary", "type": "Income", "id": 2 },
+      { "name": "Food", "type": "Expense", "id": 3 },
+      { "id": 5, "name": "Youtube", "type": "Income" },
+      { "name": "Freelance", "type": "Income", "id": 6 }
+    ],
+    "isAdmin": false
+  },
+  {
+    "name": "Chris DJ",
+    "login": "chrisq23",
+    "password": "$2b$10$XKJMICHsR0X9lfqp0UX6Ieirp5hiNlwxgMe7wLypcZSROEZR.tgIC",
+    "id": "p68qzdqqpc9",
+    "balance": 0,
+    "incomes": [],
+    "expenses": [],
+    "categories": [],
+    "isAdmin": false
+  }
+]

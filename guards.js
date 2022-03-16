@@ -3,13 +3,9 @@ const userRepo = new userRepository();
 
 const adminGuard = (req, res, next) => {
   const user = userRepo.getById(req.user.id);
-  console.log(user);
 
   // if a user sending a request is an admin
-  if (user && user.isAdmin) {
-    console.log(user);
-    next();
-  }
+  if (user && user.isAdmin) next();
   // if a user sending a request is a user
   else if (user) res.json({ message: "Unauthorized" });
   // in all other cases
@@ -18,7 +14,6 @@ const adminGuard = (req, res, next) => {
 
 const userGuard = (req, res, next) => {
   const user = userRepo.getById(req.user.id);
-  console.log(user);
 
   if (user && !user.isAdmin) next();
   else if (user) res.json({ message: "Unauthorized for these opreations" });

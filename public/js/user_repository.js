@@ -39,7 +39,10 @@ class userRepository {
   update(userUpdated, passwordConfirm, callback) {
     if (this.areInputsValid(userUpdated, passwordConfirm)) {
       userUpdated.password = bcrypt.hashSync(passwordConfirm, 10);
+
       userUpdated.isAdmin = false;
+      userUpdated.balance = parseFloat(userUpdated.balance);
+
       const index = this.getIndex(userUpdated.id, callback);
       this.usersDb[index] = userUpdated;
       this.updateDB(callback);
@@ -57,7 +60,17 @@ class userRepository {
   }
 
   getAll() {
-    return this.usersDb;
+    // do not show admins
+    const usersOnly = this.usersDb.filter((user) => !user.isAdmin);
+    return usersOnly.map((user) => {
+      // do not expose all the user's information, just show who is in the db
+      return {
+        name: user.name,
+        login: user.login,
+        id: user.id,
+        balance: user.balance,
+      };
+    });
   }
 
   getById(id) {
@@ -90,4 +103,8 @@ class userRepository {
   }
 }
 
-module.exports.userRepository = userRepository;
+function getUserById(db, id) {
+  return db.find((user) => user.id === id);
+}
+
+module.exports = { userRepository, getUserById };
