@@ -30,7 +30,12 @@ app.post("/sign-in", (req, res) => {
   userRepo.signIn(req.body.login, req.body.password, (user) => {
     if (!user) res.send("Incorrect inputs");
     else {
-      user.token = jwt.sign(user, process.env.JWT_SECRET_TOKEN, {
+      const payload = {
+        id: user.id,
+        name: user.name,
+        login: user.login,
+      };
+      user.token = jwt.sign(payload, process.env.JWT_SECRET_TOKEN, {
         expiresIn: process.env.JWT_EXPIRES_IN,
       });
       res.user = user;
