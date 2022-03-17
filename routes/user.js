@@ -1,157 +1,142 @@
 const express = require("express");
 const router = express.Router();
 
-const { userRepository } = require("../public/js/user_repository");
-const userRepo = new userRepository();
+const { incomeRepository } = require("../public/js/income_repository");
+const incomeRepo = new incomeRepository();
+
+const { expenseRepository } = require("../public/js/expense_repository");
+const expenseRepo = new expenseRepository();
+
+const { categoryRepository } = require("../public/js/category_repository");
+const categoryRepo = new categoryRepository();
 
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
-router
-  .route("/")
-  .get((req, res) => {
-    res.send("Welcome to user home page");
-  })
-  .post((req, res) => {
-    userRepo.userSignIn(req.body.login, req.body.password);
-    res.send(`Welcome to Budgetify ${userRepo.user.name}`);
-  });
+const { userGuard } = require("../guards");
+const { auth } = require("../auth");
 
-router.get("/:id/expenses", (req, res) => {
-  res.json(userRepo.getAllExpenses(req.params.id));
+router.get("/", auth, userGuard, (req, res) => {
+  res.send("Welcome to user home page");
 });
 
-router.get("/:id/incomes", (req, res) => {
-  res.json(userRepo.getAllIncomes(req.params.id));
+router.get("/:id/expenses", auth, userGuard, (req, res) => {
+  res.json(expenseRepo.getAll(req.params.id));
 });
 
-router.get("/:id/income-categories", (req, res) => {
-  res.json(userRepo.getAllIncomeCategories(req.params.id));
+router.get("/:id/incomes", auth, userGuard, (req, res) => {
+  res.json(incomeRepo.getAll(req.params.id));
 });
 
-router.get("/:id/expense-categories", (req, res) => {
-  res.json(userRepo.getAllExpenseCategories(req.params.id));
+router.get("/:id/categories", auth, userGuard, (req, res) => {
+  res.json(categoryRepo.getAll(req.params.id));
+});
+
+router.get("/:id/income-categories", auth, userGuard, (req, res) => {
+  res.json(categoryRepo.getAllIncomeCategories(req.params.id));
+});
+
+router.get("/:id/expense-categories", auth, userGuard, (req, res) => {
+  res.json(categoryRepo.getAllExpenseCategories(req.params.id));
 });
 
 // create requests
-router.post("/:id/income-create", (req, res) => {
+router.post("/:id/income-create", auth, userGuard, (req, res) => {
   const income = {
     amount: req.body.amount,
     category: req.body.category,
     description: req.body.description,
   };
-  userRepo.createIncome(req.params.id, income, (err) => {
+  incomeRepo.create(req.params.id, income, (err) => {
     if (err) res.json("Something went wrong");
-    else res.json(userRepo.getAllIncomes(req.params.id));
+    else res.json(incomeRepo.getAll(req.params.id));
   });
 });
 
-router.post("/:id/expense-create", (req, res) => {
+router.post("/:id/expense-create", auth, userGuard, (req, res) => {
   const expense = {
     amount: req.body.amount,
     category: req.body.category,
     description: req.body.description,
   };
-  userRepo.createExpense(req.params.id, expense, (err) => {
+  expenseRepo.create(req.params.id, expense, (err) => {
     if (err) res.json("Something went wrong");
-    else res.json(userRepo.getAllExpenses(req.params.id));
+    else res.json(expenseRepo.getAll(req.params.id));
   });
 });
 
-router.post("/:id/income-category-create", (req, res) => {
-  const incomeCategory = { name: req.body.name };
-  userRepo.createIncomeCategory(req.params.id, incomeCategory, (err) => {
+router.post("/:id/category-create", auth, userGuard, (req, res) => {
+  const category = { name: req.body.name, type: req.body.type };
+  categoryRepo.create(req.params.id, category, (err) => {
     if (err) res.json("Something went wrong");
-    else res.json(userRepo.getAllIncomeCategories(req.params.id));
-  });
-});
-
-router.post("/:id/expense-category-create", (req, res) => {
-  const expenseCategory = { name: req.body.name };
-  userRepo.createExpenseCategory(req.params.id, expenseCategory, (err) => {
-    if (err) res.json("Something went wrong");
-    else res.json(userRepo.getAllExpenseCategories(req.params.id));
+    else res.json(categoryRepo.getAll(req.params.id));
   });
 });
 
 // update requests
-router.put("/:id/income/:incomeId", (req, res) => {
+router.put("/:id/income/:incomeId", auth, userGuard, (req, res) => {
   const income = {
     id: req.params.incomeId,
     amount: req.body.amount,
     category: req.body.category,
     description: req.body.description,
   };
-  userRepo.updateIncome(req.params.id, income, (err) => {
+  incomeRepo.update(req.params.id, income, (err) => {
     if (err) res.json("Something went wrong");
-    else res.json(userRepo.getAllIncomes(req.params.id));
+    else res.json(incomeRepo.getAll(req.params.id));
   });
 });
 
-router.put("/:id/expense/:expenseId", (req, res) => {
+router.put("/:id/expense/:expenseId", auth, userGuard, (req, res) => {
   const expense = {
     id: req.params.expenseId,
     amount: req.body.amount,
     category: req.body.category,
     description: req.body.description,
   };
-  userRepo.updateExpense(req.params.id, expense, (err) => {
+  expenseRepo.update(req.params.id, expense, (err) => {
     if (err) res.json("Something went wrong");
-    else res.json(userRepo.getAllExpenses(req.params.id));
+    else res.json(expenseRepo.getAll(req.params.id));
   });
 });
 
-router.put("/:id/income-category/:categoryId", (req, res) => {
-  const incomeCategory = { name: req.body.name, id: req.params.categoryId };
-  userRepo.updateIncomeCategory(req.params.id, incomeCategory, (err) => {
+router.put("/:id/category/:categoryId", auth, userGuard, (req, res) => {
+  const category = {
+    id: req.params.categoryId,
+    name: req.body.name,
+    type: req.body.type,
+  };
+  categoryRepo.update(req.params.id, category, (err) => {
     if (err) res.json("Something went wrong");
-    else res.json(userRepo.getAllIncomeCategories(req.params.id));
-  });
-});
-
-router.put("/:id/expense-category/:expenseId", (req, res) => {
-  const expenseCategory = { name: req.body.name, id: req.params.expenseId };
-  userRepo.updateExpenseCategory(req.params.id, expenseCategory, (err) => {
-    if (err) res.json("Something went wrong");
-    else res.json(userRepo.getAllExpenseCategories(req.params.id));
+    else res.json(categoryRepo.getAll(req.params.id));
   });
 });
 
 // delete requests
-router.delete("/:id/expense-delete/:expenseId", (req, res) => {
-  userRepo.deleteExpense(req.params.id, req.params.expenseId, (err) => {
+router.delete("/:id/expense-delete/:expenseId", auth, userGuard, (req, res) => {
+  expenseRepo.delete(req.params.id, req.params.expenseId, (err) => {
     if (err) res.json("Something went wrong");
-    else res.json(userRepo.getAllExpenses(req.params.id));
+    else res.json(expenseRepo.getAll(req.params.id));
   });
 });
 
-router.delete("/:id/income-delete/:incomeId", (req, res) => {
-  userRepo.deleteIncome(req.params.id, req.params.incomeId, (err) => {
+router.delete("/:id/income-delete/:incomeId", auth, userGuard, (req, res) => {
+  incomeRepo.delete(req.params.id, req.params.incomeId, (err) => {
     if (err) res.json("Something went wrong");
-    else res.json(userRepo.getAllIncomes(req.params.id));
+    else res.json(incomeRepo.getAll(req.params.id));
   });
 });
 
-router.delete("/:id/expense-category-delete/:expenseCategoryId", (req, res) => {
-  userRepo.deleteExpenseCategory(
-    req.params.id,
-    req.params.expenseCategoryId,
-    (err) => {
+router.delete(
+  "/:id/category-delete/:categoryId",
+  auth,
+  userGuard,
+  (req, res) => {
+    categoryRepo.delete(req.params.id, req.params.categoryId, (err) => {
       if (err) res.json("Something went wrong");
-      else res.json(userRepo.getAllExpenseCategories(req.params.id));
-    }
-  );
-});
-
-router.delete("/:id/income-category-delete/:incomeCategoryId", (req, res) => {
-  userRepo.deleteIncomeCategory(
-    req.params.id,
-    req.params.incomeCategoryId,
-    (err) => {
-      if (err) res.json("Something went wrong");
-      else res.json(userRepo.getAllIncomeCategories(req.params.id));
-    }
-  );
-});
+      else res.json(categoryRepo.getAll(req.params.id));
+    });
+  }
+);
 
 module.exports = router;
