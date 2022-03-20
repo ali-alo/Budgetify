@@ -1,110 +1,144 @@
-const fs = require("fs");
 const bcrypt = require("bcrypt");
+const User = require("../../models/users");
 
 class userRepository {
-  constructor() {
-    this.usersDb = [];
+  constructor() {}
 
-    fs.readFile("./data/users.json", (err, data) => {
-      if (!err) this.usersDb = JSON.parse(data);
-    });
-  }
-
-  signIn(login, password, callback) {
-    const user = this.usersDb.find(
-      (user) =>
-        user.login === login && bcrypt.compareSync(password, user.password)
-    );
-    callback(user);
-  }
-
-  findByLogin(login) {
-    return this.usersDb.find((user) => user.login === login);
-  }
-
-  create(user, passwordConfirm, callback) {
-    if (this.areInputsValid(user, passwordConfirm)) {
-      user.id = this.generateRandomId();
-      user.password = bcrypt.hashSync(passwordConfirm, 10);
-      user.balance = 0;
-      user.incomes = [];
-      user.expenses = [];
-      user.categories = [];
-      user.isAdmin = false;
-      this.usersDb.push(user);
-      this.updateDB(callback);
-    } else callback(true);
-  }
-
-  update(userUpdated, passwordConfirm, callback) {
-    if (this.areInputsValid(userUpdated, passwordConfirm)) {
-      userUpdated.password = bcrypt.hashSync(passwordConfirm, 10);
-
-      userUpdated.isAdmin = false;
-      userUpdated.balance = parseFloat(userUpdated.balance);
-
-      const index = this.getIndex(userUpdated.id, callback);
-      this.usersDb[index] = userUpdated;
-      this.updateDB(callback);
-    } else callback(true);
-  }
-
-  delete(id, callback) {
-    const index = this.getIndex(id, callback);
-    if (index >= 0) {
-      this.usersDb.splice(index, 1);
-      this.updateDB(callback);
-    } else {
-      callback(true);
+  async signIn(email, password, callback) {
+    try {
+      const user = await User.findOne().where("email").equals(email);
+      if (user && bcrypt.compareSync(password, user.password)) callback(user);
+      else callback(false);
+    } catch (e) {
+      console.log(e);
+      callback(false);
     }
   }
 
-  getAll() {
-    // do not show admins
-    const usersOnly = this.usersDb.filter((user) => !user.isAdmin);
-    return usersOnly.map((user) => {
-      // do not expose all the user's information, just show who is in the db
-      return {
-        name: user.name,
-        login: user.login,
-        id: user.id,
-        balance: user.balance,
-      };
-    });
+  async findByEmail(email) {
+    return await User.findByEmail(email);
   }
 
-  getById(id) {
-    return this.usersDb.find((user) => user.id === id);
+  async create(name, surname, email, password, passwordConfirm, dob, callback) {
+    try {
+      if (password === passwordConfirm) {
+        const user = new User({
+          name,
+          surname,
+          email,
+          password: bcrypt.hashSync(password, 10),
+          dob,
+        });
+        await user.save();
+        callback(`${name} ${surname} is added`);
+      } else {
+        callback("Passwords do not match");
+      }
+    } catch (e) {
+      callback(e.message);
+    }
   }
 
-  getIndex(id, callback) {
-    const index = this.usersDb.findIndex((user) => user.id === id);
-    if (index >= 0) return index;
-    callback(true);
+  async update(
+    id,
+    name,
+    surname,
+    email,
+    password,
+    passwordConfirm,
+    dob,
+    callback
+  ) {
+    try {
+      const user = await this.getById(id);
+      if (password === passwordConfirm) {
+        user.name = name;
+        user.surname = surname;
+        user.email = email;
+        user.password = bcrypt.hashSync(password, 10);
+        user.dob = dob;
+        await user.save();
+        callback(`${user.name} ${user.surname} is updated`);
+      } else {
+        callback("Passwords do not match");
+      }
+    } catch (e) {
+      callback(e.message);
+    }
   }
 
-  areInputsValid(user, passwordConfirm) {
-    if (
-      user.password.trim().length > 4 &&
-      user.name.trim().length > 2 &&
-      user.login.trim().length > 4 &&
-      user.password === passwordConfirm
-    )
-      return true;
-    return false;
+  async delete(id, callback) {
+    try {
+      const user = await this.getById(id);
+      if (user) {
+        await user.delete();
+        callback(`${user.name} with the id ${id} is deleted from the database`);
+      } else callback(`There is no such user with the id ${id}`);
+    } catch (e) {
+      callback(e);
+    }
   }
 
-  updateDB(callback) {
-    fs.writeFile("./data/users.json", JSON.stringify(this.usersDb), callback);
+  async getAll() {
+    // do not expose all the user's information, just show who is in the db
+    return await User.find({})
+      .where("isAdmin")
+      .equals(false)
+      .select("name")
+      .select("surname")
+      .select("email")
+      .select("dob");
   }
 
-  generateRandomId() {
-    return Math.random().toString(36).slice(2);
+  async getById(id) {
+    return await User.findById(id)
+      .select("_id")
+      .select("name")
+      .select("surname")
+      .select("email")
+      .select("dob");
   }
 }
 
-function getUserById(db, id) {
-  return db.find((user) => user.id === id);
+async function getUserById(id) {
+  return await User.findById(id);
 }
 
-module.exports = { userRepository, getUserById };
+async function setAccount(userId, accountId) {
+  const user = await User.findById(userId);
+  user.accounts.push(accountId);
+  await user.save();
+}
+
+async function deleteAccount(userId, accountId) {
+  const user = await User.findById(userId);
+  const index = user.accounts.findIndex(
+    (account) => account._id.toString() === accountId
+  );
+  if (index >= 0) user.accounts.splice(index, 1);
+  await user.save();
+}
+
+async function setCategory(userId, categoryId) {
+  const user = await User.findById(userId);
+  user.categories.push(categoryId);
+  await user.save();
+}
+
+async function deleteCategory(userId, categoryId) {
+  const user = await User.findById(userId);
+  const index = user.categories.findIndex(
+    (category) => category._id.toString() === categoryId
+  );
+  if (index >= 0) user.categories.splice(index, 1);
+  await user.save();
+}
+
+module.exports = {
+  userRepository,
+  getUserById,
+  setAccount,
+  deleteAccount,
+  setCategory,
+  deleteCategory,
+};

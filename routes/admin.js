@@ -14,57 +14,53 @@ router.get("/", auth, adminGuard, (req, res) => {
   res.send("Welcome to admin home page");
 });
 
-router.get("/view-users", auth, adminGuard, (req, res) => {
-  res.json(userRepo.getAll());
+router.get("/view-users", auth, adminGuard, async (req, res) => {
+  res.json(await userRepo.getAll());
 });
 
 router.post("/create-user", auth, adminGuard, (req, res) => {
-  const user = {
-    name: req.body.name,
-    login: req.body.login,
-    password: req.body.password,
-  };
-  userRepo.create(user, req.body.passwordConfirm, (err) => {
-    if (err) {
-      res.send("Couldn't add the user");
-    } else {
-      res.json(user);
+  const { name, surname, email, password, passwordConfirm, dob } = req.body;
+  userRepo.create(
+    name,
+    surname,
+    email,
+    password,
+    passwordConfirm,
+    dob,
+    (msg) => {
+      res.json(msg);
     }
-  });
+  );
 });
 
 router
   .route("/user/:id")
-  .get(auth, adminGuard, (req, res) => {
-    res.json(userRepo.getById(req.params.id));
+  .get(auth, adminGuard, async (req, res) => {
+    const user = await userRepo.getById(req.params.id);
+    res.json(user);
   })
-  .delete(auth, adminGuard, (req, res) => {
-    userRepo.delete(req.params.id, (err) => {
-      if (err)
-        res.status(404).json({ message: "User with this id does not exist" });
-      else res.send(`User with the id ${req.params.id} is deleted`);
+  .delete(auth, adminGuard, async (req, res) => {
+    await userRepo.delete(req.params.id, (msg) => {
+      res.json(msg);
     });
   });
 
 router.put("/user/:id/edit", auth, adminGuard, (req, res) => {
-  const userUpdated = {
-    id: req.params.id,
-    name: req.body.name,
-    login: req.body.login,
-    balance: req.body.balance,
-    password: req.body.password,
-    incomes: req.body.incomes,
-    expenses: req.body.expenses,
-    categories: req.body.categories,
-  };
+  const id = req.params.id;
+  const { name, surname, email, password, passwordConfirm, dob } = req.body;
 
-  userRepo.update(userUpdated, req.body.passwordConfirm, (err) => {
-    if (err) {
-      res.status(400).json({ message: "Invalid input" });
-    } else {
-      res.json(userRepo.getAll());
+  userRepo.update(
+    id,
+    name,
+    surname,
+    email,
+    password,
+    passwordConfirm,
+    dob,
+    (msg) => {
+      res.json(msg);
     }
-  });
+  );
 });
 
 module.exports = router;
