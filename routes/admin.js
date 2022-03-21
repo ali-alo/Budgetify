@@ -14,53 +14,15 @@ router.get("/", auth, adminGuard, (req, res) => {
   res.send("Welcome to admin home page");
 });
 
-router.get("/view-users", auth, adminGuard, async (req, res) => {
-  res.json(await userRepo.getAll());
-});
+router.get("/view-users", auth, adminGuard, userRepo.getAll);
 
-router.post("/create-user", auth, adminGuard, (req, res) => {
-  const { name, surname, email, password, passwordConfirm, dob } = req.body;
-  userRepo.create(
-    name,
-    surname,
-    email,
-    password,
-    passwordConfirm,
-    dob,
-    (msg) => {
-      res.json(msg);
-    }
-  );
-});
+router.post("/create-user", auth, adminGuard, userRepo.create.bind(userRepo));
 
 router
   .route("/user/:id")
-  .get(auth, adminGuard, async (req, res) => {
-    const user = await userRepo.getById(req.params.id);
-    res.json(user);
-  })
-  .delete(auth, adminGuard, async (req, res) => {
-    await userRepo.delete(req.params.id, (msg) => {
-      res.json(msg);
-    });
-  });
+  .get(auth, adminGuard, userRepo.getById)
+  .delete(auth, adminGuard, userRepo.delete);
 
-router.put("/user/:id/edit", auth, adminGuard, (req, res) => {
-  const id = req.params.id;
-  const { name, surname, email, password, passwordConfirm, dob } = req.body;
-
-  userRepo.update(
-    id,
-    name,
-    surname,
-    email,
-    password,
-    passwordConfirm,
-    dob,
-    (msg) => {
-      res.json(msg);
-    }
-  );
-});
+router.put("/user/:id/edit", auth, adminGuard, userRepo.update.bind(userRepo));
 
 module.exports = router;

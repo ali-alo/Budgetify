@@ -66,7 +66,7 @@ class accountRepository {
 
 async function setIncome(accountId, incomeId, amount) {
   const account = await Account.findById(accountId);
-  account.incomes.push(incomeId);
+  account.incomesIds.push(incomeId);
   account.balance += amount;
   await account.save();
 }
@@ -80,11 +80,11 @@ async function updateBalance(accountId, differenceAmount, isIncome) {
 
 async function deleteIncome(accountId, incomeId, amount) {
   const account = await Account.findById(accountId);
-  const index = account.incomes.findIndex(
+  const index = account.incomesIds.findIndex(
     (income) => income._id.toString() === incomeId
   );
   if (index >= 0) {
-    account.incomes.splice(index, 1);
+    account.incomesIds.splice(index, 1);
     account.balance -= amount;
   }
   await account.save();

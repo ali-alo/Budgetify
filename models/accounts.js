@@ -19,11 +19,11 @@ const accountSchema = new mongoose.Schema({
     ref: "User",
     required: true,
   },
-  incomes: {
+  incomesIds: {
     type: [mongoose.ObjectId],
     ref: "Income",
   },
-  expenses: {
+  expensesIds: {
     type: [mongoose.ObjectId],
     ref: "Expense",
   },

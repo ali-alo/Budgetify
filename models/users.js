@@ -15,6 +15,10 @@ const userSchema = new mongoose.Schema({
     lowercase: true,
     unique: true,
   },
+  country: {
+    type: String,
+    required: true,
+  },
   password: {
     type: String,
     required: true,
@@ -29,11 +33,11 @@ const userSchema = new mongoose.Schema({
     }-${new Date().getDate()}`,
   },
 
-  accounts: {
+  accountsIds: {
     type: [mongoose.ObjectId],
     ref: "Account",
   },
-  categories: {
+  categoriesIds: {
     type: [mongoose.ObjectId],
     ref: "Category",
   },
