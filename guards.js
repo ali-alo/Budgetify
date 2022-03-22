@@ -1,8 +1,6 @@
-const { userRepository } = require("./public/js/user_repository");
-const userRepo = new userRepository();
-
-const adminGuard = (req, res, next) => {
-  const user = userRepo.getById(req.user.id);
+const adminGuard = async (req, res, next) => {
+  const usersArr = await req.user;
+  const user = usersArr[0];
 
   // if a user sending a request is an admin
   if (user && user.isAdmin) next();
@@ -12,11 +10,15 @@ const adminGuard = (req, res, next) => {
   else res.json({ message: "Something went wrong" });
 };
 
-const userGuard = (req, res, next) => {
-  const user = userRepo.getById(req.user.id);
+const userGuard = async (req, res, next) => {
+  const usersArr = await req.user;
+  const user = usersArr[0];
 
-  if (user && !user.isAdmin) next();
-  else if (user) res.json({ message: "Unauthorized for these opreations" });
+  // do not allow one user view another user
+  if (user && !user.isAdmin && user.id === req.params.id) next();
+  else if (user && user.id === req.params.id)
+    res.json({ message: "Unauthorized for these opreations" });
+  else if (user) res.json({ message: "You are not allowed to view this user" });
   else res.json({ message: "Something went wrong" });
 };
 

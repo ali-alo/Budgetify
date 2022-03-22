@@ -1,110 +1,160 @@
-const fs = require("fs");
 const bcrypt = require("bcrypt");
+const User = require("../../models/users");
 
 class userRepository {
-  constructor() {
-    this.usersDb = [];
+  constructor() {}
 
-    fs.readFile("./data/users.json", (err, data) => {
-      if (!err) this.usersDb = JSON.parse(data);
-    });
-  }
-
-  signIn(login, password, callback) {
-    const user = this.usersDb.find(
-      (user) =>
-        user.login === login && bcrypt.compareSync(password, user.password)
-    );
-    callback(user);
-  }
-
-  findByLogin(login) {
-    return this.usersDb.find((user) => user.login === login);
-  }
-
-  create(user, passwordConfirm, callback) {
-    if (this.areInputsValid(user, passwordConfirm)) {
-      user.id = this.generateRandomId();
-      user.password = bcrypt.hashSync(passwordConfirm, 10);
-      user.balance = 0;
-      user.incomes = [];
-      user.expenses = [];
-      user.categories = [];
-      user.isAdmin = false;
-      this.usersDb.push(user);
-      this.updateDB(callback);
-    } else callback(true);
-  }
-
-  update(userUpdated, passwordConfirm, callback) {
-    if (this.areInputsValid(userUpdated, passwordConfirm)) {
-      userUpdated.password = bcrypt.hashSync(passwordConfirm, 10);
-
-      userUpdated.isAdmin = false;
-      userUpdated.balance = parseFloat(userUpdated.balance);
-
-      const index = this.getIndex(userUpdated.id, callback);
-      this.usersDb[index] = userUpdated;
-      this.updateDB(callback);
-    } else callback(true);
-  }
-
-  delete(id, callback) {
-    const index = this.getIndex(id, callback);
-    if (index >= 0) {
-      this.usersDb.splice(index, 1);
-      this.updateDB(callback);
-    } else {
-      callback(true);
+  async signIn(email, password, callback) {
+    try {
+      const user = await User.findOne().where("email").equals(email);
+      if (user && bcrypt.compareSync(password, user.password)) callback(user);
+      else callback(false);
+    } catch (e) {
+      callback(false);
     }
   }
 
-  getAll() {
-    // do not show admins
-    const usersOnly = this.usersDb.filter((user) => !user.isAdmin);
-    return usersOnly.map((user) => {
-      // do not expose all the user's information, just show who is in the db
-      return {
-        name: user.name,
-        login: user.login,
-        id: user.id,
-        balance: user.balance,
-      };
-    });
+  async findByEmail(email) {
+    return await User.findByEmail(email);
   }
 
-  getById(id) {
-    return this.usersDb.find((user) => user.id === id);
+  async create(req, res) {
+    try {
+      const { name, surname, email, country, password, passwordConfirm, dob } =
+        req.body;
+      if (password === passwordConfirm) {
+        if (this.validatePassword(password)) {
+          const user = new User({
+            name,
+            surname,
+            email,
+            country,
+            password: bcrypt.hashSync(password, 10),
+            dob,
+          });
+          await user.save();
+          res.json(`${name} ${surname} is added`);
+        } else
+          res.json(
+            "Passowrd must be eight or more characters long and contain at least one uppercase letter, one lowecase letter,one number and one special character"
+          );
+      } else {
+        res.json("Passwords do not match");
+      }
+    } catch (e) {
+      res.json(e.message);
+    }
   }
 
-  getIndex(id, callback) {
-    const index = this.usersDb.findIndex((user) => user.id === id);
-    if (index >= 0) return index;
-    callback(true);
+  async update(req, res) {
+    try {
+      const id = req.params.id;
+      const { name, surname, email, country, password, passwordConfirm, dob } =
+        req.body;
+      const user = await User.findById(id);
+      if (password === passwordConfirm) {
+        if (this.validatePassword(password)) {
+          user.name = name;
+          user.surname = surname;
+          user.email = email;
+          user.country = country;
+          user.password = bcrypt.hashSync(password, 10);
+          user.dob = dob;
+          await user.save();
+          res.json(`${user.name} ${user.surname} is updated`);
+        } else
+          res.json(
+            "Passowrd must be eight or more characters long and contain at least one uppercase letter, one lowecase letter, one number and one special character"
+          );
+      } else {
+        res.json("Passwords do not match");
+      }
+    } catch (e) {
+      res.json(e.message);
+    }
   }
 
-  areInputsValid(user, passwordConfirm) {
-    if (
-      user.password.trim().length > 4 &&
-      user.name.trim().length > 2 &&
-      user.login.trim().length > 4 &&
-      user.password === passwordConfirm
-    )
-      return true;
+  async delete(req, res) {
+    try {
+      const user = await User.findById(req.params.id);
+      if (user) {
+        await user.delete();
+        res.json(
+          `${user.name} with the id ${req.params.id} is deleted from the database`
+        );
+      } else res.json(`There is no such user with the id ${req.params.id}`);
+    } catch (e) {
+      res.json(e);
+    }
+  }
+
+  async getAll(req, res) {
+    // do not expose all the user's information, just show who is in the db
+    const users = await User.find({})
+      .where("isAdmin")
+      .equals(false)
+      .select("name")
+      .select("surname")
+      .select("email")
+      .select("dob");
+    return res.json(users);
+  }
+
+  async getById(req, res) {
+    const user = await User.findById(req.params.id)
+      .select("_id")
+      .select("name")
+      .select("surname")
+      .select("email")
+      .select("dob");
+    res.json(user);
+  }
+
+  validatePassword(password) {
+    // one digit char, one special char, one lowercase char and one uppercase char, contain minimum 8 chars
+    const regExp = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    if (regExp.test(password)) return true;
     return false;
   }
-
-  updateDB(callback) {
-    fs.writeFile("./data/users.json", JSON.stringify(this.usersDb), callback);
-  }
-
-  generateRandomId() {
-    return Math.random().toString(36).slice(2);
-  }
 }
 
-function getUserById(db, id) {
-  return db.find((user) => user.id === id);
+async function getUserById(id) {
+  return await User.findById(id);
 }
 
-module.exports = { userRepository, getUserById };
+async function setAccount(userId, accountId) {
+  const user = await User.findById(userId);
+  user.accountsIds.push(accountId);
+  await user.save();
+}
+
+async function deleteAccount(userId, accountId) {
+  const user = await User.findById(userId);
+  const index = user.accountsIds.findIndex((id) => id.toString() === accountId);
+  if (index >= 0) user.accountsIds.splice(index, 1);
+  await user.save();
+}
+
+async function setCategory(userId, categoryId) {
+  const user = await User.findById(userId);
+  user.categoriesIds.push(categoryId);
+  await user.save();
+}
+
+async function deleteCategory(userId, categoryId) {
+  const user = await User.findById(userId);
+  const index = user.categoriesIds.findIndex(
+    (id) => id.toString() === categoryId
+  );
+  if (index >= 0) user.categoriesIds.splice(index, 1);
+  await user.save();
+}
+
+module.exports = {
+  userRepository,
+  getUserById,
+  setAccount,
+  deleteAccount,
+  setCategory,
+  deleteCategory,
+};

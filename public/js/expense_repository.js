@@ -1,67 +1,75 @@
-const fs = require("fs");
+const Expense = require("../../models/expenses");
+const users = require("../../models/users");
 
-const { getUserById } = require("./user_repository");
+const {
+  setExpense,
+  deleteExpense,
+  updateBalance,
+} = require("./account_repository");
 
 class expenseRepository {
-  constructor() {
-    this.usersDb = [];
+  constructor() {}
 
-    fs.readFile("./data/users.json", (err, data) => {
-      if (!err) this.usersDb = JSON.parse(data);
-    });
+  async create(req, res) {
+    try {
+      const accountId = req.params.accountId;
+      const { categoryId, comment } = req.body;
+      const amount = parseFloat(req.body.amount);
+      const expense = new Expense({ amount, categoryId, accountId, comment });
+      await expense.save();
+      setExpense(accountId, expense._id, amount);
+      res.json("Expense was added");
+    } catch (e) {
+      res.json(e.message);
+    }
   }
 
-  create(userId, expense, callback) {
-    const user = getUserById(this.usersDb, userId);
-    expense.id = this.setId(user);
-    expense.amount = parseFloat(expense.amount);
-    user.expenses.push(expense);
-    user.balance -= expense.amount;
-    this.updateDB(callback);
+  async getAll(req, res) {
+    try {
+      const expenses = await Expense.find()
+        .where("accountId")
+        .equals(req.params.accountId);
+      res.json(expenses);
+    } catch (e) {
+      res.json(e.message);
+    }
   }
 
-  getAll(userId) {
-    const user = getUserById(this.usersDb, userId);
-    return user.expenses;
+  async getById(req, res) {
+    const expense = await Expense.findById(req.params.expenseId);
+    res.json(expense);
   }
 
-  getUserById(userId, expenseId) {
-    const user = getUserById(this.usersDb, userId);
-    return user.expenses.find((expense) => expense.id === expenseId);
+  async update(req, res) {
+    try {
+      const { accountId, expenseId } = req.params;
+      const { categoryId, comment } = req.body;
+      const amount = parseFloat(req.body.amount);
+      const expense = await Expense.findById(expenseId);
+      const differenceAmount = amount - expense.amount;
+      expense.amount = amount;
+      expense.categoryId = categoryId;
+      expense.comment = comment;
+      await expense.save();
+      await updateBalance(accountId, differenceAmount, false);
+      res.json("Expense was updated");
+    } catch (e) {
+      res.json(e.message);
+    }
   }
 
-  update(userId, expenseUpdated, callback) {
-    const user = getUserById(this.usersDb, userId);
-
-    // change the data type from string to numeric
-    expenseUpdated.id = parseInt(expenseUpdated.id);
-    expenseUpdated.amount = parseFloat(expenseUpdated.amount);
-
-    const index = user.expenses.findIndex(
-      (expense) => expense.id == expenseUpdated.id
-    );
-    if (index >= 0) {
-      user.expenses[index] = expenseUpdated;
-      this.updateDB(callback);
-    } else callback(true);
-  }
-
-  delete(userId, expenseId, callback) {
-    const user = getUserById(this.usersDb, userId);
-    const index = user.expenses.findIndex((expense) => expense.id == expenseId);
-    if (index >= 0) {
-      user.expenses.splice(index, 1);
-      this.updateDB(callback);
-    } else callback(true);
-  }
-
-  setId(user) {
-    if (user.expenses.length === 0) return 1;
-    else return user.expenses[user.expenses.length - 1].id + 1;
-  }
-
-  updateDB(callback) {
-    fs.writeFile("./data/users.json", JSON.stringify(this.usersDb), callback);
+  async delete(req, res) {
+    try {
+      const { accountId, expenseId } = req.params;
+      const expense = await Expense.findById(expenseId);
+      if (expense) {
+        deleteExpense(accountId, expenseId, expense.amount);
+        await expense.delete();
+        res.json("Expense was deleted");
+      } else res.json(`Expense with the id ${expenseId} does not exist`);
+    } catch (e) {
+      res.json(e.message);
+    }
   }
 }
 

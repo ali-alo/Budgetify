@@ -2,7 +2,7 @@ const { userRepository } = require("./public/js/user_repository");
 const userRepo = new userRepository();
 
 const jwtCallback = (jwt_payload, done) => {
-  const user = userRepo.findByLogin(jwt_payload.login);
+  const user = userRepo.findByEmail(jwt_payload.email);
   if (user) {
     return done(null, user);
   }

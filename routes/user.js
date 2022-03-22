@@ -10,6 +10,9 @@ const expenseRepo = new expenseRepository();
 const { categoryRepository } = require("../public/js/category_repository");
 const categoryRepo = new categoryRepository();
 
+const { accountRepository } = require("../public/js/account_repository");
+const accountRepo = new accountRepository();
+
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
@@ -20,123 +23,136 @@ router.get("/", auth, userGuard, (req, res) => {
   res.send("Welcome to user home page");
 });
 
-router.get("/:id/expenses", auth, userGuard, (req, res) => {
-  res.json(expenseRepo.getAll(req.params.id));
-});
+router.get(
+  "/:id/account/:accountId/expense/:expenseId",
+  auth,
+  userGuard,
+  expenseRepo.getById
+);
 
-router.get("/:id/incomes", auth, userGuard, (req, res) => {
-  res.json(incomeRepo.getAll(req.params.id));
-});
+router.get(
+  "/:id/account/:accountId/income/:incomeId",
+  auth,
+  userGuard,
+  incomeRepo.getById
+);
 
-router.get("/:id/categories", auth, userGuard, (req, res) => {
-  res.json(categoryRepo.getAll(req.params.id));
-});
+router.get(
+  "/:id/account/:accountId/expenses",
+  auth,
+  userGuard,
+  expenseRepo.getAll
+);
 
-router.get("/:id/income-categories", auth, userGuard, (req, res) => {
-  res.json(categoryRepo.getAllIncomeCategories(req.params.id));
-});
+router.get(
+  "/:id/account/:accountId/incomes",
+  auth,
+  userGuard,
+  incomeRepo.getAll
+);
 
-router.get("/:id/expense-categories", auth, userGuard, (req, res) => {
-  res.json(categoryRepo.getAllExpenseCategories(req.params.id));
-});
+router.get("/:id/categories", auth, userGuard, categoryRepo.getAll);
+
+router.get("/:id/category/:categoryId", auth, userGuard, categoryRepo.getById);
+
+router.get(
+  "/:id/income-categories",
+  auth,
+  userGuard,
+  categoryRepo.getAllIncomeCategories
+);
+
+router.get(
+  "/:id/expense-categories",
+  auth,
+  userGuard,
+  categoryRepo.getAllExpenseCategories
+);
+
+router.get("/:id/accounts", auth, userGuard, accountRepo.getAll);
+
+router.get(
+  "/:id/account/:accountId",
+  auth,
+  userGuard,
+  accountRepo.getById.bind(accountRepo)
+);
 
 // create requests
-router.post("/:id/income-create", auth, userGuard, (req, res) => {
-  const income = {
-    amount: req.body.amount,
-    category: req.body.category,
-    description: req.body.description,
-  };
-  incomeRepo.create(req.params.id, income, (err) => {
-    if (err) res.json("Something went wrong");
-    else res.json(incomeRepo.getAll(req.params.id));
-  });
-});
+router.post(
+  "/:id/account/:accountId/income-create",
+  auth,
+  userGuard,
+  incomeRepo.create
+);
 
-router.post("/:id/expense-create", auth, userGuard, (req, res) => {
-  const expense = {
-    amount: req.body.amount,
-    category: req.body.category,
-    description: req.body.description,
-  };
-  expenseRepo.create(req.params.id, expense, (err) => {
-    if (err) res.json("Something went wrong");
-    else res.json(expenseRepo.getAll(req.params.id));
-  });
-});
+router.post(
+  "/:id/account/:accountId/expense-create",
+  auth,
+  userGuard,
+  expenseRepo.create
+);
 
-router.post("/:id/category-create", auth, userGuard, (req, res) => {
-  const category = { name: req.body.name, type: req.body.type };
-  categoryRepo.create(req.params.id, category, (err) => {
-    if (err) res.json("Something went wrong");
-    else res.json(categoryRepo.getAll(req.params.id));
-  });
-});
+router.post("/:id/category-create", auth, userGuard, categoryRepo.create);
+
+router.post("/:id/account-create", auth, userGuard, accountRepo.create);
 
 // update requests
-router.put("/:id/income/:incomeId", auth, userGuard, (req, res) => {
-  const income = {
-    id: req.params.incomeId,
-    amount: req.body.amount,
-    category: req.body.category,
-    description: req.body.description,
-  };
-  incomeRepo.update(req.params.id, income, (err) => {
-    if (err) res.json("Something went wrong");
-    else res.json(incomeRepo.getAll(req.params.id));
-  });
-});
+router.put(
+  "/:id/account/:accountId/income/:incomeId",
+  auth,
+  userGuard,
+  incomeRepo.update
+);
 
-router.put("/:id/expense/:expenseId", auth, userGuard, (req, res) => {
-  const expense = {
-    id: req.params.expenseId,
-    amount: req.body.amount,
-    category: req.body.category,
-    description: req.body.description,
-  };
-  expenseRepo.update(req.params.id, expense, (err) => {
-    if (err) res.json("Something went wrong");
-    else res.json(expenseRepo.getAll(req.params.id));
-  });
-});
+router.put(
+  "/:id/account/:accountId/expense/:expenseId",
+  auth,
+  userGuard,
+  expenseRepo.update
+);
 
-router.put("/:id/category/:categoryId", auth, userGuard, (req, res) => {
-  const category = {
-    id: req.params.categoryId,
-    name: req.body.name,
-    type: req.body.type,
-  };
-  categoryRepo.update(req.params.id, category, (err) => {
-    if (err) res.json("Something went wrong");
-    else res.json(categoryRepo.getAll(req.params.id));
-  });
-});
+router.put(
+  "/:id/category/:categoryId",
+  auth,
+  userGuard,
+  categoryRepo.update.bind(categoryRepo)
+);
+
+router.put(
+  "/:id/account/:accountId",
+  auth,
+  userGuard,
+  accountRepo.update.bind(accountRepo)
+);
 
 // delete requests
-router.delete("/:id/expense-delete/:expenseId", auth, userGuard, (req, res) => {
-  expenseRepo.delete(req.params.id, req.params.expenseId, (err) => {
-    if (err) res.json("Something went wrong");
-    else res.json(expenseRepo.getAll(req.params.id));
-  });
-});
+router.delete(
+  "/:id/account/:accountId/expense-delete/:expenseId",
+  auth,
+  userGuard,
+  expenseRepo.delete
+);
 
-router.delete("/:id/income-delete/:incomeId", auth, userGuard, (req, res) => {
-  incomeRepo.delete(req.params.id, req.params.incomeId, (err) => {
-    if (err) res.json("Something went wrong");
-    else res.json(incomeRepo.getAll(req.params.id));
-  });
-});
+router.delete(
+  "/:id/account/:accountId/income-delete/:incomeId",
+  auth,
+  userGuard,
+  incomeRepo.delete
+);
 
 router.delete(
   "/:id/category-delete/:categoryId",
   auth,
   userGuard,
-  (req, res) => {
-    categoryRepo.delete(req.params.id, req.params.categoryId, (err) => {
-      if (err) res.json("Something went wrong");
-      else res.json(categoryRepo.getAll(req.params.id));
-    });
-  }
+  categoryRepo.delete.bind(categoryRepo)
+);
+
+router.delete(
+  "/:id/account-delete/:accountId",
+  auth,
+  userGuard,
+  accountRepo.delete.bind(accountRepo)
 );
 
 module.exports = router;

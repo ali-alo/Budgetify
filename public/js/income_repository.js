@@ -1,66 +1,80 @@
-const fs = require("fs");
+const Income = require("../../models/incomes");
 
-const { getUserById } = require("./user_repository");
+const {
+  setIncome,
+  deleteIncome,
+  updateBalance,
+} = require("./account_repository");
 
 class incomeRepository {
-  constructor() {
-    this.usersDb = [];
+  constructor() {}
 
-    fs.readFile("./data/users.json", (err, data) => {
-      if (!err) this.usersDb = JSON.parse(data);
-    });
+  async create(req, res) {
+    try {
+      const accountId = req.params.accountId;
+      const { categoryId, comment } = req.body;
+      const amount = parseFloat(req.body.amount);
+
+      const income = new Income({
+        amount,
+        categoryId,
+        accountId,
+        comment,
+      });
+      await income.save();
+      setIncome(accountId, income._id, amount);
+      res.json("Income was added");
+    } catch (e) {
+      res.json(e.message);
+    }
   }
 
-  create(userId, income, callback) {
-    const user = getUserById(this.usersDb, userId);
-    income.id = this.setId(user);
-    income.amount = parseFloat(income.amount);
-    user.incomes.push(income);
-    user.balance += income.amount;
-    this.updateDB(callback);
+  async getAll(req, res) {
+    try {
+      const incomes = await Income.find()
+        .where("accountId")
+        .equals(req.params.accountId);
+      res.json(incomes);
+    } catch (e) {
+      res.json(e.message);
+    }
   }
 
-  getAll(userId) {
-    const user = getUserById(this.usersDb, userId);
-    return user.incomes;
+  async getById(req, res) {
+    const income = await Income.findById(req.params.incomeId);
+    res.json(income);
   }
 
-  getById(userId, incomeId) {
-    const user = getUserById(this.usersDb, userId);
-    return user.incommes.find((income) => income.id === incomeId);
+  async update(req, res) {
+    try {
+      const { accountId, incomeId } = req.params;
+      const { categoryId, comment } = req.body;
+      const amount = parseFloat(req.body.amount);
+      const income = await Income.findById(incomeId);
+      const differenceAmount = amount - income.amount;
+      income.amount = amount;
+      income.categoryId = categoryId;
+      income.comment = comment;
+      await income.save();
+      await updateBalance(accountId, differenceAmount, true);
+      res.json("Income was updated");
+    } catch (e) {
+      res.json(e.message);
+    }
   }
 
-  update(userId, incomeUpdated, callback) {
-    const user = getUserById(this.usersDb, userId);
-
-    // change the data type from string to numeric
-    incomeUpdated.id = parseInt(incomeUpdated.id);
-    incomeUpdated.amount = parseFloat(incomeUpdated.amount);
-    const index = user.incomes.findIndex((income) => {
-      return income.id === incomeUpdated.id;
-    });
-    if (index >= 0) {
-      user.incomes[index] = incomeUpdated;
-      this.updateDB(callback);
-    } else callback(true);
-  }
-
-  delete(userId, incomeId, callback) {
-    const user = getUserById(this.usersDb, userId);
-    const index = user.incomes.findIndex((income) => income.id == incomeId);
-    if (index >= 0) {
-      user.incomes.splice(index, 1);
-      this.updateDB(callback);
-    } else callback(true);
-  }
-
-  setId(user) {
-    if (user.incomes.length === 0) return 1;
-    else return user.incomes[user.incomes.length - 1].id + 1;
-  }
-
-  updateDB(callback) {
-    fs.writeFile("./data/users.json", JSON.stringify(this.usersDb), callback);
+  async delete(req, res) {
+    try {
+      const { accountId, incomeId } = req.params;
+      const income = await Income.findById(incomeId);
+      if (income) {
+        deleteIncome(accountId, incomeId, income.amount);
+        await income.delete();
+        res.json("Income was deleted");
+      } else res.json(`Income with the id ${incomeId} does not exist`);
+    } catch (e) {
+      res.json(e.message);
+    }
   }
 }
 

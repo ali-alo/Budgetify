@@ -1,74 +1,113 @@
-const fs = require("fs");
+const Category = require("../../models/categories");
 
-const { getUserById } = require("./user_repository");
+const { setCategory, deleteCategory } = require("./user_repository");
 
 class categoryRepository {
-  constructor() {
-    this.usersDb = [];
-
-    fs.readFile("./data/users.json", (err, data) => {
-      if (!err) this.usersDb = JSON.parse(data);
-    });
-  }
+  constructor() {}
 
   // create function
-  create(userId, category, callback) {
-    const user = getUserById(this.usersDb, userId);
-    category.id = this.setId(user);
-    user.categories.push(category);
-    this.updateDB(callback);
+  async create(req, res) {
+    try {
+      const { name, type } = req.body;
+      const belongsTo = req.params.id;
+      const category = new Category({ name, type, belongsTo });
+      await category.save();
+      await setCategory(belongsTo, category._id);
+      res.json("Category was added");
+    } catch (e) {
+      res.json(e.message);
+    }
   }
 
   // get functions
-  getAll(userId) {
-    const user = getUserById(this.usersDb, userId);
-    return user.categories;
+  async getAll(req, res) {
+    try {
+      const categories = await Category.find()
+        .where("belongsTo")
+        .equals(req.params.id);
+      res.json(categories);
+    } catch (e) {
+      res.json(e.message);
+    }
   }
 
-  getAllIncomeCategories(userId) {
-    const user = getUserById(this.usersDb, userId);
-    return user.categories.filter((category) => category.type === "Income");
+  async getAllIncomeCategories(req, res) {
+    try {
+      const incomeCategories = await Category.find()
+        .where("belongsTo")
+        .equals(req.params.id)
+        .where("type")
+        .equals("Income");
+      res.json(incomeCategories);
+    } catch (e) {
+      res.json(e.message);
+    }
   }
 
-  getAllExpenseCategories(userId) {
-    const user = getUserById(this.usersDb, userId);
-    return user.categories.filter((category) => category.type === "Expense");
+  async getAllExpenseCategories(req, res) {
+    try {
+      const expenseCategories = await Category.find()
+        .where("belongsTo")
+        .equals(req.params.id)
+        .where("type")
+        .equals("Expense");
+      res.json(expenseCategories);
+    } catch (e) {
+      res.json(e.message);
+    }
+  }
+
+  async getById(req, res) {
+    try {
+      const category = await Category.findById(req.params.categoryId)
+        .where("belongsTo")
+        .equals(req.params.id);
+      res.json(category);
+    } catch (e) {
+      res.json(e.message);
+    }
   }
 
   // update function
-  update(userId, categoryUpdated, callback) {
-    const user = getUserById(this.usersDb, userId);
-    categoryUpdated.id = parseInt(categoryUpdated.id);
-
-    const index = user.categories.findIndex(
-      (category) => category.id == categoryUpdated.id
-    );
-    if (index >= 0) {
-      user.categories[index] = categoryUpdated;
-      this.updateDB(callback);
-    } else callback(true);
+  async update(req, res) {
+    try {
+      const { id, categoryId } = req.params;
+      const { name, type } = req.body;
+      const category = await this.getCategoryById(id, categoryId);
+      category.name = name;
+      category.type = type;
+      await category.save();
+      res.json("Category is updaed");
+    } catch (e) {
+      res.json(e.message);
+    }
   }
 
   // delete function
-  delete(userId, categoryId, callback) {
-    const user = getUserById(this.usersDb, userId);
-    const index = user.categories.findIndex(
-      (category) => category.id == categoryId
-    );
-    if (index >= 0) {
-      user.categories.splice(index, 1);
-      this.updateDB(callback);
-    } else callback(true);
+  async delete(req, res) {
+    try {
+      const { id, categoryId } = req.params;
+      const category = await this.getCategoryById(id, categoryId);
+      if (category) {
+        await deleteCategory(id, categoryId);
+        await category.delete();
+        res.json(`${category.name} category is deleted from your profile`);
+      } else res.json(`You do not have ${category.name} category`);
+    } catch (e) {
+      res.json(e.meessage);
+    }
   }
 
-  setId(user) {
-    if (user.categories.length === 0) return 1;
-    else return user.categories[user.categories.length - 1].id + 1;
-  }
-
-  updateDB(callback) {
-    fs.writeFile("./data/users.json", JSON.stringify(this.usersDb), callback);
+  async getCategoryById(userId, categoryId) {
+    const category = await Category.findById(categoryId)
+      .where("belongsTo")
+      .equals(userId);
+    return category;
   }
 }
 
-module.exports.categoryRepository = categoryRepository;
+async function findCategory(id) {
+  return await Category.findById(id);
+}
+
+module.exports = { categoryRepository, findCategory };
