@@ -10,7 +10,6 @@ class userRepository {
       if (user && bcrypt.compareSync(password, user.password)) callback(user);
       else callback(false);
     } catch (e) {
-      console.log(e);
       callback(false);
     }
   }
@@ -71,7 +70,6 @@ class userRepository {
         res.json("Passwords do not match");
       }
     } catch (e) {
-      console.log(e);
       res.json(e.message);
     }
   }
@@ -79,7 +77,6 @@ class userRepository {
   async delete(req, res) {
     try {
       const user = await User.findById(req.params.id);
-      console.log(user);
       if (user) {
         await user.delete();
         res.json(
@@ -133,9 +130,7 @@ async function setAccount(userId, accountId) {
 
 async function deleteAccount(userId, accountId) {
   const user = await User.findById(userId);
-  const index = user.accountsIds.findIndex(
-    (account) => account._id.toString() === accountId
-  );
+  const index = user.accountsIds.findIndex((id) => id.toString() === accountId);
   if (index >= 0) user.accountsIds.splice(index, 1);
   await user.save();
 }
@@ -149,7 +144,7 @@ async function setCategory(userId, categoryId) {
 async function deleteCategory(userId, categoryId) {
   const user = await User.findById(userId);
   const index = user.categoriesIds.findIndex(
-    (category) => category._id.toString() === categoryId
+    (id) => id.toString() === categoryId
   );
   if (index >= 0) user.categoriesIds.splice(index, 1);
   await user.save();

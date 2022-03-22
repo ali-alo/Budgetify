@@ -1,66 +1,84 @@
 const Account = require("../../models/accounts");
+const Income = require("../../models/incomes");
+const Expense = require("../../models/expenses");
 
 const { setAccount, deleteAccount } = require("./user_repository");
+const incomes = require("../../models/incomes");
 
 class accountRepository {
   constructor() {}
 
-  async create(name, belongsTo, callback) {
+  async create(req, res) {
     try {
-      const account = await new Account({ name, belongsTo });
+      const belongsTo = req.params.id;
+      const account = new Account({
+        name: req.body.name,
+        belongsTo,
+      });
       await account.save();
       await setAccount(belongsTo, account._id);
-      callback("Account was added");
+      res.json("Account was added");
     } catch (e) {
-      console.log(e.message);
-      callback(e.message);
+      res.json(e.message);
     }
   }
 
-  async getAll(userId) {
+  async getAll(req, res) {
     try {
-      return await Account.find().where("belongsTo").equals(userId);
-    } catch (e) {
-      console.log(e.message);
-      return e.message;
-    }
-  }
-
-  async getById(userId, accountId) {
-    try {
-      return await Account.findById(accountId)
+      const accounts = await Account.find()
         .where("belongsTo")
-        .equals(userId);
+        .equals(req.params.id);
+      res.json(accounts);
     } catch (e) {
-      console.log(e.message);
-      return e.message;
+      res.json(e.message);
     }
   }
 
-  async update(userId, accountId, name, callback) {
+  async getById(req, res) {
     try {
-      const account = await this.getById(userId, accountId);
-      account.name = name;
+      const { id, accountId } = req.params;
+      const account = await this.getAccountById(id, accountId);
+      res.json(account);
+    } catch (e) {
+      res.json(e.message);
+    }
+  }
+
+  async update(req, res) {
+    try {
+      const { id, accountId } = req.params;
+      const account = await this.getAccountById(id, accountId);
+      account.name = req.body.name;
       await account.save();
-      callback(`${name} account is updated`);
+      res.json(`${account.name} account is updated`);
     } catch (e) {
-      console.log(e.message);
-      callback(e.message);
+      res.json(e.message);
     }
   }
 
-  async delete(userId, accountId, callback) {
+  async delete(req, res) {
     try {
-      const account = await this.getById(userId, accountId);
+      const { id, accountId } = req.params;
+      const account = await this.getAccountById(id, accountId);
       if (account) {
-        await deleteAccount(userId, accountId);
+        // delete all incomes and expense of the deleted account
+        await Income.deleteMany({ accountId: id });
+        await Expense.deleteMany({ accountId: id });
+
+        await deleteAccount(id, accountId);
         await account.delete();
-        callback(`${account.name} account is deleted from your profile`);
-      } else callback(`There is no such account with the id ${accountId}`);
+        res.json(`${account.name} account is deleted from your profile`);
+      } else res.json(`You don't have an account with the id ${accountId}`);
     } catch (e) {
-      console.log(e.message);
-      callback(e.message);
+      res.json(e.message);
     }
+  }
+
+  async getAccountById(userId, accountId) {
+    const account = await Account.findById(accountId)
+      .where("belongsTo")
+      .equals(userId);
+    return account;
   }
 }
 
@@ -81,7 +99,7 @@ async function updateBalance(accountId, differenceAmount, isIncome) {
 async function deleteIncome(accountId, incomeId, amount) {
   const account = await Account.findById(accountId);
   const index = account.incomesIds.findIndex(
-    (income) => income._id.toString() === incomeId
+    (id) => id.toString() === incomeId
   );
   if (index >= 0) {
     account.incomesIds.splice(index, 1);
@@ -92,18 +110,18 @@ async function deleteIncome(accountId, incomeId, amount) {
 
 async function setExpense(accountId, expenseId, amount) {
   const account = await Account.findById(accountId);
-  account.expenses.push(expenseId);
+  account.expensesIds.push(expenseId);
   account.balance -= amount;
   await account.save();
 }
 
 async function deleteExpense(accountId, expenseId, amount) {
   const account = await Account.findById(accountId);
-  const index = account.expenses.findIndex(
-    (income) => income._id.toString() === expenseId
+  const index = account.expensesIds.findIndex(
+    (id) => id.toString() === expenseId
   );
   if (index >= 0) {
-    account.expenses.splice(index, 1);
+    account.expensesIds.splice(index, 1);
     account.balance += amount;
   }
   await account.save();

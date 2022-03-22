@@ -9,9 +9,11 @@ const {
 class incomeRepository {
   constructor() {}
 
-  async create(amount, accountId, categoryId, comment, callback) {
+  async create(req, res) {
     try {
-      amount = parseFloat(amount);
+      const accountId = req.params.accountId;
+      const { categoryId, comment } = req.body;
+      const amount = parseFloat(req.body.amount);
 
       const income = new Income({
         amount,
@@ -21,54 +23,57 @@ class incomeRepository {
       });
       await income.save();
       setIncome(accountId, income._id, amount);
-      callback("Income was added");
+      res.json("Income was added");
     } catch (e) {
-      console.log(e);
-      callback(e.message);
+      res.json(e.message);
     }
   }
 
-  async getAll(accountId) {
+  async getAll(req, res) {
     try {
-      return await Income.find().where("accountId").equals(accountId);
+      const incomes = await Income.find()
+        .where("accountId")
+        .equals(req.params.accountId);
+      res.json(incomes);
     } catch (e) {
-      console.log(e);
-      return e.message;
+      res.json(e.message);
     }
   }
 
-  async getById(incomeId) {
-    return await Income.findById(incomeId);
+  async getById(req, res) {
+    const income = await Income.findById(req.params.incomeId);
+    res.json(income);
   }
 
-  async update(incomeId, accountId, amount, categoryId, comment, callback) {
+  async update(req, res) {
     try {
-      amount = parseFloat(amount);
-      const income = await this.getById(incomeId);
+      const { accountId, incomeId } = req.params;
+      const { categoryId, comment } = req.body;
+      const amount = parseFloat(req.body.amount);
+      const income = await Income.findById(incomeId);
       const differenceAmount = amount - income.amount;
       income.amount = amount;
       income.categoryId = categoryId;
       income.comment = comment;
       await income.save();
       await updateBalance(accountId, differenceAmount, true);
-      callback("Income was updated");
+      res.json("Income was updated");
     } catch (e) {
-      console.log(e);
-      callback(e.message);
+      res.json(e.message);
     }
   }
 
-  async delete(accountId, incomeId, callback) {
+  async delete(req, res) {
     try {
-      const income = await this.getById(incomeId);
+      const { accountId, incomeId } = req.params;
+      const income = await Income.findById(incomeId);
       if (income) {
         deleteIncome(accountId, incomeId, income.amount);
         await income.delete();
-        callback("Income was deleted");
-      } else callback(`Income with the id ${incomeId} does not exist`);
+        res.json("Income was deleted");
+      } else res.json(`Income with the id ${incomeId} does not exist`);
     } catch (e) {
-      console.log(e);
-      callback(e.message);
+      res.json(e.message);
     }
   }
 }
