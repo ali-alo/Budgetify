@@ -62,8 +62,8 @@ class accountRepository {
       const account = await this.getAccountById(id, accountId);
       if (account) {
         // delete all incomes and expense of the deleted account
-        await Income.deleteMany({ accountId: id });
-        await Expense.deleteMany({ accountId: id });
+        await Income.deleteMany({ belongsTo: id });
+        await Expense.deleteMany({ belongsTo: id });
 
         await deleteAccount(id, accountId);
         await account.delete();
