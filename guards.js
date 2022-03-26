@@ -1,6 +1,5 @@
 const adminGuard = async (req, res, next) => {
-  const usersArr = await req.user;
-  const user = usersArr[0];
+  const user = await req.user;
 
   // if a user sending a request is an admin
   if (user && user.isAdmin) next();
