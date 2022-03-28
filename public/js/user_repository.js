@@ -97,7 +97,7 @@ class userRepository {
       .select("surname")
       .select("email")
       .select("dob");
-    return res.json(users);
+    res.json(users);
   }
 
   async getById(req, res) {
