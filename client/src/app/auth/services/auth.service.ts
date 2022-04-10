@@ -14,6 +14,11 @@ export class AuthService {
       .pipe(tap((res) => this.setSession(res)));
   }
 
+  logout() {
+    localStorage.removeItem('idToken');
+    localStorage.removeItem('expiresIn');
+  }
+
   isLoggedIn() {
     const expiresIn = localStorage.getItem('expiresIn');
     if (expiresIn) {
@@ -25,7 +30,7 @@ export class AuthService {
   private setSession(res: any) {
     const expiresIn = Date.now() + Number(res.expiresIn);
     console.log(Number(res.expiresIn));
-    localStorage.setItem('userToken', res.token);
+    localStorage.setItem('idToken', res.token);
     localStorage.setItem('expiresIn', String(expiresIn));
   }
 }
