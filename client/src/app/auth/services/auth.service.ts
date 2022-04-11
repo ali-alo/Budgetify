@@ -11,15 +11,20 @@ export class AuthService {
   login(email: string, password: string) {
     return this.http
       .post('http://localhost:3000/sign-in', { email, password })
-      .pipe(tap((res) => this.setSession(res)));
+      .pipe(
+        tap((res) => {
+          this.setSession(res);
+          console.log(res);
+        })
+      );
   }
 
-  logout() {
+  logout(): void {
     localStorage.removeItem('idToken');
     localStorage.removeItem('expiresIn');
   }
 
-  isLoggedIn() {
+  isLoggedIn(): boolean {
     const expiresIn = localStorage.getItem('expiresIn');
     if (expiresIn) {
       return Date.now() < Number(expiresIn);
@@ -27,9 +32,8 @@ export class AuthService {
     return false;
   }
 
-  private setSession(res: any) {
+  private setSession(res: any): void {
     const expiresIn = Date.now() + Number(res.expiresIn);
-    console.log(Number(res.expiresIn));
     localStorage.setItem('idToken', res.token);
     localStorage.setItem('expiresIn', String(expiresIn));
   }

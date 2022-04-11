@@ -18,12 +18,10 @@ export class LoginFormComponent {
 
   constructor(private authService: AuthService, private router: Router) {}
 
-  onSubmit() {
+  onSubmit(): void {
     const { email, password } = this.loginForm.value;
     this.authService.login(email, password).subscribe({
-      next: (data) => {
-        console.log('login success');
-        console.log(data);
+      next: () => {
         this.router.navigateByUrl('accounts');
       },
       error: (e) => {
