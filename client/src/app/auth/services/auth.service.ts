@@ -14,7 +14,6 @@ export class AuthService {
       .pipe(
         tap((res) => {
           this.setSession(res);
-          console.log(res);
         })
       );
   }
