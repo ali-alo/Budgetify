@@ -1,6 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
+interface IUserToken {
+  token: string;
+  expiresIn: string;
+}
 
 @Injectable({
   providedIn: 'root',
@@ -8,9 +14,9 @@ import { tap } from 'rxjs/operators';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-  login(email: string, password: string) {
+  login(email: string, password: string): Observable<IUserToken> {
     return this.http
-      .post('http://localhost:3000/sign-in', { email, password })
+      .post<IUserToken>('http://localhost:3000/sign-in', { email, password })
       .pipe(
         tap((res) => {
           this.setSession(res);
@@ -31,7 +37,7 @@ export class AuthService {
     return false;
   }
 
-  private setSession(res: any): void {
+  private setSession(res: IUserToken): void {
     const expiresIn = Date.now() + Number(res.expiresIn);
     localStorage.setItem('idToken', res.token);
     localStorage.setItem('expiresIn', String(expiresIn));
