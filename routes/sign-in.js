@@ -1,4 +1,5 @@
 const express = require("express");
+const { decode } = require("jsonwebtoken");
 const router = express.Router();
 
 const jwt = require("jsonwebtoken");
@@ -12,7 +13,7 @@ router.use(express.urlencoded({ extended: false }));
 // users and admin authentication
 router.post("/", (req, res) => {
   userRepo.signIn(req.body.email, req.body.password, (user) => {
-    if (!user) res.send("Incorrect inputs");
+    if (!user) res.send("Email or password is incorrect");
     else {
       const payload = {
         id: user._id,
@@ -23,7 +24,7 @@ router.post("/", (req, res) => {
         expiresIn: process.env.JWT_EXPIRES_IN,
       });
       res.user = user;
-      res.json(user.token);
+      res.json({ token: user.token, expiresIn: process.env.JWT_EXPIRES_IN });
     }
   });
 });
