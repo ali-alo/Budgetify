@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 interface IUserToken {
   token: string;
   expiresIn: string;
+  id: string;
 }
 
 @Injectable({
@@ -27,6 +28,7 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('idToken');
     localStorage.removeItem('expiresIn');
+    localStorage.removeItem('userId');
   }
 
   isLoggedIn(): boolean {
@@ -41,5 +43,6 @@ export class AuthService {
     const expiresIn = Date.now() + Number(res.expiresIn);
     localStorage.setItem('idToken', res.token);
     localStorage.setItem('expiresIn', String(expiresIn));
+    localStorage.setItem('userId', res.id);
   }
 }

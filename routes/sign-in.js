@@ -1,5 +1,4 @@
 const express = require("express");
-const { decode } = require("jsonwebtoken");
 const router = express.Router();
 
 const jwt = require("jsonwebtoken");
@@ -24,7 +23,11 @@ router.post("/", (req, res) => {
         expiresIn: process.env.JWT_EXPIRES_IN,
       });
       res.user = user;
-      res.json({ token: user.token, expiresIn: process.env.JWT_EXPIRES_IN });
+      res.json({
+        token: user.token,
+        expiresIn: process.env.JWT_EXPIRES_IN,
+        id: user._id,
+      });
     }
   });
 });

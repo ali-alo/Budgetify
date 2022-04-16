@@ -10,13 +10,10 @@ const adminGuard = async (req, res, next) => {
 };
 
 const userGuard = async (req, res, next) => {
-  const usersArr = await req.user;
-  const user = usersArr[0];
+  const user = await req.user;
 
   // do not allow one user view another user
-  if (user && !user.isAdmin && user.id === req.params.id) next();
-  else if (user && user.id === req.params.id)
-    res.json({ message: "Unauthorized for these opreations" });
+  if (user && user.id === req.params.id) next();
   else if (user) res.json({ message: "You are not allowed to view this user" });
   else res.json({ message: "Something went wrong" });
 };

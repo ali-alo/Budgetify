@@ -4,7 +4,7 @@ const router = express.Router();
 const { userRepository } = require("../public/js/user_repository");
 const userRepo = new userRepository();
 
-const { adminGuard } = require("../guards");
+const { adminGuard, userGuard } = require("../guards");
 const { auth } = require("../auth");
 
 router.use(express.json());

@@ -13,6 +13,9 @@ const categoryRepo = new categoryRepository();
 const { accountRepository } = require("../public/js/account_repository");
 const accountRepo = new accountRepository();
 
+const { userRepository } = require("../public/js/user_repository");
+const userRepo = new userRepository();
+
 router.use(express.json());
 router.use(express.urlencoded({ extended: false }));
 
@@ -22,6 +25,8 @@ const { auth } = require("../auth");
 router.get("/", auth, userGuard, (req, res) => {
   res.send("Welcome to user home page");
 });
+
+router.get("/:id", auth, userGuard, userRepo.getById);
 
 router.get(
   "/:id/account/:accountId/expense/:expenseId",

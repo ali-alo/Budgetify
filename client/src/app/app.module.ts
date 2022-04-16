@@ -10,6 +10,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { LoginModule } from './auth/login.module';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { AccountsComponent } from './accounts/accounts.component';
+import { LayoutModule } from './layout/layout.module';
 
 @NgModule({
   declarations: [AppComponent, NotFoundComponent, AccountsComponent],
@@ -20,6 +21,7 @@ import { AccountsComponent } from './accounts/accounts.component';
     SharedModule,
     LoginModule,
     HttpClientModule,
+    LayoutModule,
   ],
   providers: [
     {
