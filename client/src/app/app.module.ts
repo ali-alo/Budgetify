@@ -11,9 +11,17 @@ import { LoginModule } from './auth/login.module';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { AccountsComponent } from './accounts/accounts.component';
 import { LayoutModule } from './layout/layout.module';
+import { AccountComponent } from './account/account.component';
+import { AccountsListComponent } from './accounts-list/accounts-list.component';
 
 @NgModule({
-  declarations: [AppComponent, NotFoundComponent, AccountsComponent],
+  declarations: [
+    AppComponent,
+    NotFoundComponent,
+    AccountsComponent,
+    AccountComponent,
+    AccountsListComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

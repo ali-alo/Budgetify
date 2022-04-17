@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/auth/services/auth.service';
 })
 export class HeaderComponent implements OnInit {
   userFullName!: string;
+  isAdmin!: boolean;
 
   constructor(
     private auth: AuthService,
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnInit {
     this.userData.getUser().subscribe({
       next: (data) => {
         this.userFullName = `${data.name} ${data.surname}`;
+        this.isAdmin = data.isAdmin;
       },
     });
   }

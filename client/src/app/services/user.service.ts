@@ -9,9 +9,14 @@ interface IUserObject {
   country: string;
   password: string;
   dob: Date;
-  accountsIds: object;
+  accountsIds: [];
   categoriesIds: object;
   isAdmin: boolean;
+}
+
+interface IAccount {
+  name: string;
+  balance: number;
 }
 
 @Injectable({
@@ -23,6 +28,12 @@ export class UserService {
   getUser(): Observable<IUserObject> {
     return this.http.get<IUserObject>(
       `http://localhost:3000/user/${localStorage.getItem('userId')}`
+    );
+  }
+
+  getAccounts(): Observable<IAccount[]> {
+    return this.http.get<IAccount[]>(
+      `http://localhost:3000/user/${localStorage.getItem('userId')}/accounts`
     );
   }
 }

@@ -1,0 +1,2 @@
+<app-account *ngFor="let account of accounts" [balance]="account.balance" [name]="account.name"></app-account>
+<h1 *ngIf="accounts.length === 0">You don't have accounts yet, please create one</h1>

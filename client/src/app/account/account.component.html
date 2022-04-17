@@ -1,0 +1,9 @@
+<mat-card class="account">
+  <mat-card-title class="account__name">{{name}}</mat-card-title><br>
+  <mat-card-subtitle class="account__balance">{{balance | currency: '':''}}</mat-card-subtitle>
+  <!-- icon will be dynamic -->
+  <mat-icon class="account__icon">attach_money</mat-icon>
+  <mat-card-actions class="account__actions">
+    <button mat-button>Details</button>
+  </mat-card-actions>
+</mat-card>

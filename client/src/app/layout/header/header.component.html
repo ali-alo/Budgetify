@@ -2,11 +2,12 @@
   <a routerLink="/accounts" class="main-nav__logo">Budgetify</a>
   <ul class="main-nav__links">
     <li>Categories</li>
+    <li>Subscriptions</li>
+    <li>Obligatory</li>
     <li>Statistics</li>
-    <li *ngIf="">Admin</li>
-    <li class="main-nav__logout" (click)="logout()">Logout</li>
+    <li *ngIf="isAdmin">Admin</li>
   </ul>
-  <div class="main-nav__user">
+  <div class="main-nav__user" (click)="logout()">
     <mat-icon>person_outline</mat-icon>
     <h4 class="main-nav__user__name">{{ userFullName}}</h4>
   </div>

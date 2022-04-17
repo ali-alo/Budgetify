@@ -1,6 +1,7 @@
 .main-nav {
-  margin: 2em 0;
-  display: flex;
+  margin: 2em 0 1em;
+  display: grid;
+  grid-template-columns: 30% 45% 25%;
   justify-content: space-between;
 
   &__logo {
@@ -15,33 +16,23 @@
 
   &__links {
     display: inline-flex;
+    padding-inline-start: 0;
     
     li {
     list-style: none;
     cursor: pointer;
-    padding: 0 2em;
+    margin-right: 2em;
     }
-  
-  &__logout {
-    color: white;
-    cursor: pointer;
-    background-color: blue;
-    border-radius: 11%;
-    letter-spacing: 1.5px;
-    
-    &:hover {
-      background-color: tomato;
-    }
-  }
 }
 
   &__user {
     display: inline-flex;
     align-self: center;
+    justify-self: end;
+    cursor: pointer;
 
     &__name {
       margin: 0 0 0 0.3em;
     }
   }
-
 }

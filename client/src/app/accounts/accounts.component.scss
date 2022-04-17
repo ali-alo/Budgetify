@@ -1,0 +1,69 @@
+.accounts-main {
+  display: grid;
+  grid-template-columns: 30% 45% 25%;
+  box-sizing: border-box;
+
+  &__search-bar {
+    border: 1px solid #000;
+    border-radius: 8px;
+    padding: 3px;
+    display: flex;
+    
+    &__icon {
+      padding: 3px 0 0 3px;
+      cursor: pointer;
+    }
+
+    &__input {
+      display: inline-block;
+      width: 90%;
+      margin-left: 8px;
+      height: inherit;
+      border: none;
+      font-size: 1.3rem;
+      outline: none;
+    }
+  }
+
+  &__filter-bar {
+    margin-top: 5px;
+    display: grid;
+    grid-template-columns: auto 1fr auto auto;
+
+    &__button-sort {
+      grid-column: 1;
+    }
+
+    &__button-expense {
+      border: 1px solid #000;
+      border-radius: 15px;
+      padding: 0 8px;
+      margin-left: 5px;
+      grid-column: 3;
+
+      &__icon {
+        margin-right: 10px;
+        font-weight: bold;
+        color: orangered;
+      }
+    }
+
+    &__button-income {
+      border: 1px solid #000;
+      border-radius: 15px;
+      padding: 0 8px;
+      margin-left: 5px;
+      grid-column: 4;
+
+      &__icon {
+        margin-right: 10px;
+        font-weight: bold;
+        color: rgb(114, 168, 32);
+      }
+    }
+  }
+
+  &__bar {
+    justify-self: end;
+  }
+}

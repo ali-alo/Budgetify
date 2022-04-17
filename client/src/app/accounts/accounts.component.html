@@ -1,3 +1,30 @@
 <app-header></app-header>
-<h2>Accounts works!</h2>
-<p>Implementation of it will be later in the next commits</p>
+<div class="accounts-main">
+  <app-accounts-list></app-accounts-list>
+  <div class="accounts-main__transactions">
+
+    <div class="accounts-main__search-bar">
+      <mat-icon class="accounts-main__search-bar__icon">search</mat-icon>
+      <input type="text" placeholder="Search" class="accounts-main__search-bar__input">
+    </div>
+
+    <div class="accounts-main__filter-bar">
+      <button mat-flat-button class="accounts-main__filter-bar__button-sort">
+        <mat-icon class="accounts-main__filter-bar__button-sort__icon">sort</mat-icon> 
+        Transaction Date
+      </button>
+      <button mat-flat-button class="accounts-main__filter-bar__button-expense">
+        <mat-icon class="accounts-main__filter-bar__button-expense__icon">arrow_downward</mat-icon>
+        Expense
+      </button>
+      <button mat-flat-button class="accounts-main__filter-bar__button-income">
+        <mat-icon class="accounts-main__filter-bar__button-income__icon">arrow_upward</mat-icon>
+        Income
+      </button>
+    </div>
+    
+  </div>
+  <div class="accounts-main__bar">
+    <h1>Add Transactions</h1>
+  </div>
+</div>
