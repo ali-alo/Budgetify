@@ -35,35 +35,16 @@
     }
 
     &__button-expense {
-      border: 1px solid #000;
-      border-radius: 15px;
-      padding: 0 8px;
-      margin-left: 5px;
       grid-column: 3;
-
-      &__icon {
-        margin-right: 10px;
-        font-weight: bold;
-        color: orangered;
-      }
     }
 
     &__button-income {
-      border: 1px solid #000;
-      border-radius: 15px;
-      padding: 0 8px;
-      margin-left: 5px;
       grid-column: 4;
-
-      &__icon {
-        margin-right: 10px;
-        font-weight: bold;
-        color: rgb(114, 168, 32);
-      }
     }
   }
 
-  &__bar {
+  &__extras {
+    margin-top: 10em;
     justify-self: end;
   }
 }

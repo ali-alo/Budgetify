@@ -13,18 +13,12 @@
         <mat-icon class="accounts-main__filter-bar__button-sort__icon">sort</mat-icon> 
         Transaction Date
       </button>
-      <button mat-flat-button class="accounts-main__filter-bar__button-expense">
-        <mat-icon class="accounts-main__filter-bar__button-expense__icon">arrow_downward</mat-icon>
-        Expense
-      </button>
-      <button mat-flat-button class="accounts-main__filter-bar__button-income">
-        <mat-icon class="accounts-main__filter-bar__button-income__icon">arrow_upward</mat-icon>
-        Income
-      </button>
+      <app-category-button [isIncome]="false" class="accounts-main__filter-bar__button-expense"></app-category-button>
+      <app-category-button class="accounts-main__filter-bar__button-income"></app-category-button>
     </div>
     
   </div>
-  <div class="accounts-main__bar">
-    <h1>Add Transactions</h1>
+  <div class="accounts-main__extras">
+    <app-add-button text="Add Transaction"></app-add-button>
   </div>
 </div>

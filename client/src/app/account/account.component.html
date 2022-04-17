@@ -1,4 +1,4 @@
-<mat-card class="account">
+<mat-card class="account" [ngClass]="{'faded': !isActive }">
   <mat-card-title class="account__name">{{name}}</mat-card-title><br>
   <mat-card-subtitle class="account__balance">{{balance | currency: '':''}}</mat-card-subtitle>
   <!-- icon will be dynamic -->

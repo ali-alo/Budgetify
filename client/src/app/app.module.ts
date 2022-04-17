@@ -13,6 +13,8 @@ import { AccountsComponent } from './accounts/accounts.component';
 import { LayoutModule } from './layout/layout.module';
 import { AccountComponent } from './account/account.component';
 import { AccountsListComponent } from './accounts-list/accounts-list.component';
+import { CategoryButtonComponent } from './category-button/category-button.component';
+import { AddButtonComponent } from './add-button/add-button.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +23,8 @@ import { AccountsListComponent } from './accounts-list/accounts-list.component';
     AccountsComponent,
     AccountComponent,
     AccountsListComponent,
+    CategoryButtonComponent,
+    AddButtonComponent,
   ],
   imports: [
     BrowserModule,

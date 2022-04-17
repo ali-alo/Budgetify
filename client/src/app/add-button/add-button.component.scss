@@ -1,0 +1,11 @@
+.button {
+  border: 1px solid #000;
+  border-radius: 15px;
+  background-color: #EAA3FF;
+
+  &__icon {
+    color: #fff;
+    margin-right:  8px;
+    font-weight: bold;
+  }
+}
