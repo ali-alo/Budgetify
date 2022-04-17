@@ -19,6 +19,18 @@ const expenseSchema = new mongoose.Schema({
     ref: "Account",
     required: true,
   },
+  paymentDate: {
+    type: Date,
+    default: new Date(),
+  },
+  creationDate: {
+    type: Date,
+    default: new Date(),
+  },
+  updateDate: {
+    type: Date,
+    default: new Date(),
+  },
   comment: String,
 });
 

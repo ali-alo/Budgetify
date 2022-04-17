@@ -10,6 +10,10 @@ const accountSchema = new mongoose.Schema({
     uppercase: true,
     required: true,
   },
+  currency: {
+    type: String,
+    required: true,
+  },
   balance: {
     type: Number,
     default: 0,

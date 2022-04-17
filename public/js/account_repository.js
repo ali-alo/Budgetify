@@ -3,7 +3,6 @@ const Income = require("../../models/incomes");
 const Expense = require("../../models/expenses");
 
 const { setAccount, deleteAccount } = require("./user_repository");
-const incomes = require("../../models/incomes");
 
 class accountRepository {
   constructor() {}

@@ -106,7 +106,8 @@ class userRepository {
       .select("name")
       .select("surname")
       .select("email")
-      .select("dob");
+      .select("dob")
+      .select("isAdmin");
     res.json(user);
   }
 
