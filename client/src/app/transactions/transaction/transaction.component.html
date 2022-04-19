@@ -1,0 +1,12 @@
+<mat-card class="transaction">
+  <mat-icon class="transaction__icon" [ngClass]="{'expense': !isIncome}">{{ isIncome ? "arrow_downward" : "arrow_upward" }}</mat-icon>
+  <mat-card-title class="transaction__title">{{title}}</mat-card-title>
+  <mat-card-subtitle class="transaction__info">
+    {{ isIncome ? "Income" : "Expense" }} - 
+    {{paymentDate | date: 'dd-MM-yy'}}
+  </mat-card-subtitle>
+  <mat-card-title class="transaction__amount" [ngClass]="{'expense': !isIncome}">
+    {{ !isIncome? "-": ""}}{{ amount | currency: '':''}}
+  </mat-card-title>
+
+</mat-card>

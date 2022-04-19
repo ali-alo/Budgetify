@@ -26,9 +26,7 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem('idToken');
-    localStorage.removeItem('expiresIn');
-    localStorage.removeItem('userId');
+    localStorage.clear();
   }
 
   isLoggedIn(): boolean {

@@ -6,8 +6,11 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 
+import { AddButtonComponent } from './add-button/add-button.component';
+import { CategoryButtonComponent } from './category-button/category-button.component';
+
 @NgModule({
-  declarations: [],
+  declarations: [AddButtonComponent, CategoryButtonComponent],
   imports: [
     CommonModule,
     MatButtonModule,
@@ -22,6 +25,8 @@ import { MatCardModule } from '@angular/material/card';
     MatFormFieldModule,
     MatIconModule,
     MatCardModule,
+    AddButtonComponent,
+    CategoryButtonComponent,
   ],
 })
 export class SharedModule {}

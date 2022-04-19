@@ -1,9 +1,5 @@
 const mongoose = require("mongoose");
 
-// const Expense = require("./expenses");
-// const Income = require("./incomes");
-// const Category = require("./categories");
-
 const accountSchema = new mongoose.Schema({
   name: {
     type: String,

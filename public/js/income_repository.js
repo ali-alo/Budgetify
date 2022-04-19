@@ -12,13 +12,15 @@ class incomeRepository {
   async create(req, res) {
     try {
       const accountId = req.params.accountId;
-      const { categoryId, comment } = req.body;
+      const { title, categoryIds, comment, paymmentDate } = req.body;
       const amount = parseFloat(req.body.amount);
 
       const income = new Income({
+        title,
         amount,
-        categoryId,
+        categoryIds,
         accountId,
+        paymmentDate,
         comment,
       });
       await income.save();
@@ -48,13 +50,15 @@ class incomeRepository {
   async update(req, res) {
     try {
       const { accountId, incomeId } = req.params;
-      const { categoryId, comment } = req.body;
+      const { title, categoryIds, comment } = req.body;
       const amount = parseFloat(req.body.amount);
       const income = await Income.findById(incomeId);
       const differenceAmount = amount - income.amount;
+      income.title = title;
       income.amount = amount;
-      income.categoryId = categoryId;
+      income.categoryIds = categoryIds;
       income.comment = comment;
+      income.updateDate = new Date();
       await income.save();
       await updateBalance(accountId, differenceAmount, true);
       res.json("Income was updated");

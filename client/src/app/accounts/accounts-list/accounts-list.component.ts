@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../services/user.service';
+import { UserService } from '../../services/user.service';
 
 interface IAccount {
   name: string;
@@ -18,7 +18,7 @@ export class AccountsListComponent implements OnInit {
 
   constructor(private userData: UserService) {}
 
-  viewTransactions(accountId: string): void {
+  chooseAccount(accountId: string): void {
     // reset active account
     this.accounts.forEach((account) => (account.isActive = false));
 
@@ -26,6 +26,8 @@ export class AccountsListComponent implements OnInit {
       (account) => account._id === accountId
     );
     newActiveAccount!.isActive = true;
+    localStorage.setItem('accountId', accountId);
+    this.userData.setAccount();
   }
 
   ngOnInit(): void {
@@ -36,7 +38,7 @@ export class AccountsListComponent implements OnInit {
           this.accounts.push(account);
         });
         // set first account to be active (default)
-        this.accounts[0].isActive = true;
+        this.chooseAccount(this.accounts[0]._id);
       },
     });
   }

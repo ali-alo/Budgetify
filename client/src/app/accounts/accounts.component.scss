@@ -25,24 +25,29 @@
     }
   }
 
-  &__filter-bar {
+  &__transactions-column {
     margin-top: 5px;
-    display: grid;
-    grid-template-columns: auto 1fr auto auto;
-
-    &__button-sort {
-      grid-column: 1;
-    }
-
-    &__button-expense {
-      grid-column: 3;
-    }
-
-    &__button-income {
-      grid-column: 4;
+    
+    &__filter-bar {
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      margin-bottom: 10px;
+    
+      &__button-sort {
+        padding: 0;
+        grid-column: 1;
+      }
+    
+      &__button-expense {
+        grid-column: 3;
+      }
+    
+      &__button-income {
+        grid-column: 4;
+      }
     }
   }
-
+  
   &__extras {
     margin-top: 10em;
     justify-self: end;

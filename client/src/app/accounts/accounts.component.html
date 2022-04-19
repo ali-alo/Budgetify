@@ -8,13 +8,16 @@
       <input type="text" placeholder="Search" class="accounts-main__search-bar__input">
     </div>
 
-    <div class="accounts-main__filter-bar">
-      <button mat-flat-button class="accounts-main__filter-bar__button-sort">
-        <mat-icon class="accounts-main__filter-bar__button-sort__icon">sort</mat-icon> 
-        Transaction Date
-      </button>
-      <app-category-button [isIncome]="false" class="accounts-main__filter-bar__button-expense"></app-category-button>
-      <app-category-button class="accounts-main__filter-bar__button-income"></app-category-button>
+    <div class="accounts-main__transactions-column">
+      <div class="accounts-main__transactions-column__filter-bar">
+        <button mat-flat-button class="accounts-main__transactions-column__filter-bar__button-sort">
+          <mat-icon class="accounts-main__transactions-column__filter-bar__button-sort__icon">sort</mat-icon> 
+          Transaction Date
+        </button>
+        <app-category-button [isIncome]="false" class="accounts-main__transactions-column__filter-bar__button-expense"></app-category-button>
+        <app-category-button class="accounts-main__transactions-column__filter-bar__button-income"></app-category-button>
+      </div>
+      <app-transactions-list></app-transactions-list>
     </div>
     
   </div>

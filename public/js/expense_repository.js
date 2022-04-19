@@ -1,5 +1,4 @@
 const Expense = require("../../models/expenses");
-const users = require("../../models/users");
 
 const {
   setExpense,
@@ -13,9 +12,16 @@ class expenseRepository {
   async create(req, res) {
     try {
       const accountId = req.params.accountId;
-      const { categoryId, comment } = req.body;
+      const { title, categoryIds, comment, paymentDate } = req.body;
       const amount = parseFloat(req.body.amount);
-      const expense = new Expense({ amount, categoryId, accountId, comment });
+      const expense = new Expense({
+        title,
+        amount,
+        categoryIds,
+        accountId,
+        paymentDate,
+        comment,
+      });
       await expense.save();
       setExpense(accountId, expense._id, amount);
       res.json("Expense was added");
@@ -43,13 +49,15 @@ class expenseRepository {
   async update(req, res) {
     try {
       const { accountId, expenseId } = req.params;
-      const { categoryId, comment } = req.body;
+      const { title, categoryIds, comment } = req.body;
       const amount = parseFloat(req.body.amount);
       const expense = await Expense.findById(expenseId);
       const differenceAmount = amount - expense.amount;
+      expense.title = title;
       expense.amount = amount;
-      expense.categoryId = categoryId;
+      expense.categoryIds = categoryIds;
       expense.comment = comment;
+      expense.updateDate = new Date();
       await expense.save();
       await updateBalance(accountId, differenceAmount, false);
       res.json("Expense was updated");

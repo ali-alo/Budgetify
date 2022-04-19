@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const incomeSchema = new mongoose.Schema({
+  title: String,
   amount: {
     type: Number,
     required: true,
@@ -9,8 +10,8 @@ const incomeSchema = new mongoose.Schema({
       message: "Amount must be greater than 0",
     },
   },
-  categoryId: {
-    type: mongoose.ObjectId,
+  categoryIds: {
+    type: [mongoose.ObjectId],
     ref: "Account",
     required: true,
   },
