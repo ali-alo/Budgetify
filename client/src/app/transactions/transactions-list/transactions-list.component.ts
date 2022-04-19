@@ -1,18 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { Subscription } from 'rxjs';
-
-interface ITransaction {
-  title: string;
-  amount: number;
-  categoryIds: string[];
-  accountId: string;
-  paymentDate: Date;
-  creationDate: Date;
-  updateDate: Date;
-  comment: string;
-  isIncome: boolean;
-}
+import { ITransaction } from 'src/app/interfaces/ITransaction';
 
 @Component({
   selector: 'app-transactions-list',

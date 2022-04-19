@@ -2,12 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-
-interface IUserToken {
-  token: string;
-  expiresIn: string;
-  id: string;
-}
+import { IUserToken } from 'src/app/interfaces/IUserToken';
 
 @Injectable({
   providedIn: 'root',

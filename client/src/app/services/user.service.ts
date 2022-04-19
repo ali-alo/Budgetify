@@ -2,36 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, Subject } from 'rxjs';
 
-interface IUserObject {
-  name: string;
-  surname: string;
-  email: string;
-  country: string;
-  password: string;
-  dob: Date;
-  accountsIds: string[];
-  categoriesIds: object;
-  isAdmin: boolean;
-}
-
-interface IAccount {
-  name: string;
-  balance: number;
-  _id: string;
-  isActive: boolean;
-}
-
-interface ITransaction {
-  title: string;
-  amount: number;
-  categoryIds: string[];
-  accountId: string;
-  paymentDate: Date;
-  creationDate: Date;
-  updateDate: Date;
-  comment: string;
-  isIncome: boolean;
-}
+import { ITransaction } from '../interfaces/ITransaction';
+import { IUser } from '../interfaces/IUser';
+import { IAccount } from '../interfaces/IAccount';
 
 @Injectable({
   providedIn: 'root',
@@ -39,8 +12,8 @@ interface ITransaction {
 export class UserService {
   constructor(private http: HttpClient) {}
 
-  getUser(): Observable<IUserObject> {
-    return this.http.get<IUserObject>(
+  getUser(): Observable<IUser> {
+    return this.http.get<IUser>(
       `http://localhost:3000/user/${localStorage.getItem('userId')}`
     );
   }
@@ -57,7 +30,7 @@ export class UserService {
     this.subject.next(localStorage.getItem('accountId'));
   }
 
-  setTransactions(): Observable<any> {
+  setTransactions(): Observable<string | null> {
     return this.subject.asObservable();
   }
 

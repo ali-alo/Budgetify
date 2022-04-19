@@ -1,12 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
-
-interface IAccount {
-  name: string;
-  balance: number;
-  _id: string;
-  isActive: boolean;
-}
+import { IAccount } from 'src/app/interfaces/IAccount';
 
 @Component({
   selector: 'app-accounts-list',
