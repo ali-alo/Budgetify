@@ -1,4 +1,4 @@
-<button mat-flat-button class="button">
+<button mat-flat-button class="button" [ngClass]="{'stretch': stretch}">
   <mat-icon class="button__icon" [ngClass]="{'expense': !isIncome}">{{ isIncome ? "arrow_downward" : "arrow_upward" }}</mat-icon>
   {{ isIncome ? "Income" : "Expense" }}
 </button>

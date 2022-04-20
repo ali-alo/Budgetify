@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { IAccount } from 'src/app/interfaces/IAccount';
+import { HelperService } from 'src/app/services/helper.service';
 
 @Component({
   selector: 'app-accounts-list',
@@ -9,8 +10,10 @@ import { IAccount } from 'src/app/interfaces/IAccount';
 })
 export class AccountsListComponent implements OnInit {
   accounts: IAccount[] = [];
-
-  constructor(private userData: UserService) {}
+  constructor(
+    private userData: UserService,
+    private userHelper: HelperService
+  ) {}
 
   chooseAccount(accountId: string): void {
     // reset active account
@@ -20,20 +23,14 @@ export class AccountsListComponent implements OnInit {
       (account) => account._id === accountId
     );
     newActiveAccount!.isActive = true;
-    localStorage.setItem('accountId', accountId);
-    this.userData.setAccount();
+    this.userHelper.setAccountId(accountId);
   }
 
   ngOnInit(): void {
-    this.userData.getAccounts().subscribe({
-      next: (data) => {
-        console.log(data);
-        data.forEach((account) => {
-          this.accounts.push(account);
-        });
-        // set first account to be active (default)
-        this.chooseAccount(this.accounts[0]._id);
-      },
+    this.userData.getAccounts().subscribe((data) => {
+      this.accounts = data;
+      // set first account to be active (default)
+      this.chooseAccount(this.accounts[0]._id);
     });
   }
 }

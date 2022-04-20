@@ -3,28 +3,6 @@
   grid-template-columns: 30% 45% 25%;
   box-sizing: border-box;
 
-  &__search-bar {
-    border: 1px solid #000;
-    border-radius: 8px;
-    padding: 3px;
-    display: flex;
-    
-    &__icon {
-      padding: 3px 0 0 3px;
-      cursor: pointer;
-    }
-
-    &__input {
-      display: inline-block;
-      width: 90%;
-      margin-left: 8px;
-      height: inherit;
-      border: none;
-      font-size: 1.3rem;
-      outline: none;
-    }
-  }
-
   &__transactions-column {
     margin-top: 5px;
     
@@ -52,4 +30,21 @@
     margin-top: 10em;
     justify-self: end;
   }
+}
+
+.add-account {
+  position: absolute;
+  left: 0;
+  bottom: 3em;
+  background: linear-gradient(130deg, rgba(236, 58, 250, 1) 0%, rgba(116, 118, 230, 1) 75%, rgba(135, 15, 241, 1) 100%);
+  color: #fff;
+  font-weight: bold;
+  font-size: 2rem;
+  width: 4rem;
+  height: 3rem;
+  border-radius: 0 10px 10px 0;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

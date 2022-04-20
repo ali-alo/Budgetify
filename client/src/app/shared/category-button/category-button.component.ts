@@ -7,6 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class CategoryButtonComponent {
   @Input() isIncome = true;
+  @Input() stretch = false;
 
   constructor() {}
 }

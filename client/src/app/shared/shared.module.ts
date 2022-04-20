@@ -8,9 +8,14 @@ import { MatCardModule } from '@angular/material/card';
 
 import { AddButtonComponent } from './add-button/add-button.component';
 import { CategoryButtonComponent } from './category-button/category-button.component';
+import { SearchBoxComponent } from './search-box/search-box.component';
 
 @NgModule({
-  declarations: [AddButtonComponent, CategoryButtonComponent],
+  declarations: [
+    AddButtonComponent,
+    CategoryButtonComponent,
+    SearchBoxComponent,
+  ],
   imports: [
     CommonModule,
     MatButtonModule,
@@ -27,6 +32,7 @@ import { CategoryButtonComponent } from './category-button/category-button.compo
     MatCardModule,
     AddButtonComponent,
     CategoryButtonComponent,
+    SearchBoxComponent,
   ],
 })
 export class SharedModule {}

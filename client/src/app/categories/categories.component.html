@@ -1,0 +1,12 @@
+<app-header></app-header>
+<app-search-box></app-search-box>
+<div class="section">
+  <div class="section__categories">
+    <app-category *ngFor="let category of categories" [type]="category.type" [name]="category.name"></app-category>
+  </div>
+  <div class="section__extras">
+    <app-category-button class="section__extras__button" [stretch]="true"></app-category-button>
+    <app-category-button [isIncome]="false" class="section__extras__button" [stretch]="true"></app-category-button>
+    <app-add-button text="Add Category" class="section__extras__button" [stretch]="true"></app-add-button>
+  </div>
+</div>

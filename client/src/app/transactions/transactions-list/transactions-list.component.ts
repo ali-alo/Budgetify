@@ -1,22 +1,40 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
-import { Subscription } from 'rxjs';
 import { ITransaction } from 'src/app/interfaces/ITransaction';
+import { HelperService } from 'src/app/services/helper.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-transactions-list',
   templateUrl: './transactions-list.component.html',
   styleUrls: ['./transactions-list.component.scss'],
 })
-export class TransactionsListComponent {
-  transactionSub!: Subscription;
+export class TransactionsListComponent implements OnInit, OnDestroy {
   transactions: ITransaction[] = [];
+  accountId = '';
+  subscription = new Subscription();
 
-  constructor(private userData: UserService) {
-    this.transactionSub = userData.setTransactions().subscribe(() => {
-      this.transactions = [];
-      this.getTransactions();
-    });
+  constructor(
+    private userData: UserService,
+    private userHelper: HelperService
+  ) {}
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  ngOnInit(): void {
+    this.subscription = this.userHelper
+      .getAccountId()
+      .subscribe((accountId) => {
+        // a user may not have accounts
+        this.transactions = [];
+        console.log('Ng On Init');
+        if (accountId) {
+          this.accountId = accountId;
+          this.getTransactions();
+        }
+      });
   }
 
   getTransactions(): void {
@@ -26,7 +44,7 @@ export class TransactionsListComponent {
   }
 
   getIncomes(): void {
-    this.userData.getIncomes().subscribe({
+    this.userData.getIncomes(this.accountId).subscribe({
       next: (data) => {
         data.forEach((transaction) => {
           transaction.isIncome = true;
@@ -37,7 +55,7 @@ export class TransactionsListComponent {
   }
 
   getExpenses(): void {
-    this.userData.getExpenses().subscribe({
+    this.userData.getExpenses(this.accountId).subscribe({
       next: (data) => {
         data.forEach((transaction) => {
           transaction.isIncome = false;

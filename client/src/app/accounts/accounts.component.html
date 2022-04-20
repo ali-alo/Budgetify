@@ -3,10 +3,7 @@
   <app-accounts-list></app-accounts-list>
   <div class="accounts-main__transactions">
 
-    <div class="accounts-main__search-bar">
-      <mat-icon class="accounts-main__search-bar__icon">search</mat-icon>
-      <input type="text" placeholder="Search" class="accounts-main__search-bar__input">
-    </div>
+    <app-search-box></app-search-box>
 
     <div class="accounts-main__transactions-column">
       <div class="accounts-main__transactions-column__filter-bar">
@@ -23,5 +20,6 @@
   </div>
   <div class="accounts-main__extras">
     <app-add-button text="Add Transaction"></app-add-button>
+    <mat-icon class="add-account">add</mat-icon>
   </div>
 </div>
