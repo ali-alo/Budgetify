@@ -29,7 +29,6 @@ export class TransactionsListComponent implements OnInit, OnDestroy {
       .subscribe((accountId) => {
         // a user may not have accounts
         this.transactions = [];
-        console.log('Ng On Init');
         if (accountId) {
           this.accountId = accountId;
           this.getTransactions();
@@ -57,6 +56,7 @@ export class TransactionsListComponent implements OnInit, OnDestroy {
   getExpenses(): void {
     this.userData.getExpenses(this.accountId).subscribe({
       next: (data) => {
+        console.log(data);
         data.forEach((transaction) => {
           transaction.isIncome = false;
           this.transactions.push(transaction);

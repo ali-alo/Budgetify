@@ -83,6 +83,13 @@ router.get(
   accountRepo.getById.bind(accountRepo)
 );
 
+router.get(
+  "/user/:id/account/:accountId/expense/statistics",
+  auth,
+  userGuard,
+  expenseRepo.getExpenseStatistics
+);
+
 // create requests
 router.post(
   "/:id/account/:accountId/income-create",

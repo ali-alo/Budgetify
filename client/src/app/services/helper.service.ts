@@ -9,7 +9,6 @@ export class HelperService {
 
   private accountSource = new Subject<string>();
   getAccountId(): Observable<string> {
-    console.log('getting account');
     return this.accountSource.asObservable();
   }
 

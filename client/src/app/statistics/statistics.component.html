@@ -1,0 +1,23 @@
+<app-header></app-header>
+<div class="statistics">
+  <app-accounts-list></app-accounts-list>
+  <div class="statistics__main">
+
+    <mat-button-toggle-group #type="matButtonToggleGroup" class="statistics__main__toggle">
+      <mat-button-toggle value="byCategory" class="statistics__main__toggle__button" [ngClass]="{'active':type.value === 'byCategory' }">
+        <h3 class="statistics__main__toggle__button__text">Categories Statistics</h3>
+      </mat-button-toggle>
+      <mat-button-toggle value="byMonth" class="statistics__main__toggle__button statistics__main__toggle__button__month" 
+      [ngClass]="{'active':type.value === 'byMonth' }">
+        <h3 class="statistics__main__toggle__button__text">Monthly Statistics</h3>
+      </mat-button-toggle>
+    </mat-button-toggle-group>
+
+    <app-datepicker *ngIf="type.value === 'byMonth'"></app-datepicker>
+    <!-- <app-table *ngIf="type.value === 'byMonth'"></app-table> -->
+    <app-table [headerRows]="tableByCategoryRows"></app-table>
+  </div>
+  <div>
+
+  </div>
+</div>

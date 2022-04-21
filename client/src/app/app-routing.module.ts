@@ -5,6 +5,7 @@ import { AuthGuard } from './auth/auth.guard';
 import { LoginFormComponent } from './auth/login-form/login-form.component';
 import { CategoriesComponent } from './categories/categories.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginFormComponent },
@@ -12,6 +13,11 @@ const routes: Routes = [
   {
     path: 'categories',
     component: CategoriesComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'statistics',
+    component: StatisticsComponent,
     canActivate: [AuthGuard],
   },
   { path: '', pathMatch: 'full', redirectTo: 'accounts' },

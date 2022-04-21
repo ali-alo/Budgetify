@@ -10,6 +10,7 @@ import { AccountsModule } from './accounts/accounts.module';
 import { TransactionsModule } from './transactions/transactions.module';
 import { AppRoutingModule } from './app-routing.module';
 import { CategoriesModule } from './categories/categories.module';
+import { StatisticsModule } from './statistics/statistics.module';
 
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './not-found/not-found.component';
@@ -28,6 +29,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     LayoutModule,
     TransactionsModule,
     CategoriesModule,
+    StatisticsModule,
   ],
   providers: [
     {

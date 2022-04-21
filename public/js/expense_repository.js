@@ -79,6 +79,21 @@ class expenseRepository {
       res.json(e.message);
     }
   }
+
+  async getExpenseStatistics(req, res) {
+    console.log(req.params);
+    const expenses = await Expense.find()
+      .where("accountId")
+      .equals(req.params.accountId);
+
+    console.log(expenses);
+    let total = 0;
+    expenses.forEach((expense) => {
+      total += expense.amount;
+    });
+
+    return res.json(expenses);
+  }
 }
 
 module.exports.expenseRepository = expenseRepository;

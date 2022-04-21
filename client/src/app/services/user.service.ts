@@ -7,6 +7,7 @@ import { ITransaction } from '../interfaces/ITransaction';
 import { IUser } from '../interfaces/IUser';
 import { IAccount } from '../interfaces/IAccount';
 import { ICategory } from '../interfaces/ICategory';
+import { IExpenseStatistics } from '../interfaces/IExpenseStatistics';
 
 @Injectable({
   providedIn: 'root',
@@ -41,6 +42,7 @@ export class UserService {
   }
 
   getExpenses(accountId: string): Observable<ITransaction[]> {
+    console.log(accountId);
     return this.http
       .get<ITransaction[]>(
         `http://localhost:3000/user/${localStorage.getItem(
@@ -50,8 +52,6 @@ export class UserService {
       .pipe(take(1));
   }
 
-  ////   This part is for the next HW   \\\\\
-
   getCategories(): Observable<ICategory[]> {
     return this.http
       .get<ICategory[]>(
@@ -60,5 +60,27 @@ export class UserService {
         )}/categories`
       )
       .pipe(take(1));
+  }
+
+  getExpenseStatistics(accountId: string): Observable<IExpenseStatistics[]> {
+    console.log(accountId);
+    return this.http.get<IExpenseStatistics[]>(
+      `http://localhost:3000/user/${localStorage.getItem(
+        'userId'
+      )}/account/${accountId}/expense/statistics`
+    );
+  }
+
+  createAccount(
+    name: string,
+    currency: string,
+    description: string
+  ): Observable<IAccount> {
+    return this.http.post<IAccount>(
+      `http://localhost:3000/user/${localStorage.getItem(
+        'userId'
+      )}/account-create`,
+      { name, currency, description }
+    );
   }
 }

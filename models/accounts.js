@@ -27,6 +27,7 @@ const accountSchema = new mongoose.Schema({
     type: [mongoose.ObjectId],
     ref: "Expense",
   },
+  description: String,
 });
 
 // one user must not have two accounts with the same name

@@ -20,6 +20,11 @@
   </div>
   <div class="accounts-main__extras">
     <app-add-button text="Add Transaction"></app-add-button>
-    <mat-icon class="add-account">add</mat-icon>
+    <mat-icon class="add-account" (click)="openDialog()">add</mat-icon>
+      <p *ngIf="currency">
+        You chose: <i>{{currency}}</i>
+      </p>
+
+
   </div>
 </div>

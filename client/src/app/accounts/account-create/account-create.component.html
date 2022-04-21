@@ -1,0 +1,27 @@
+<div class="dialog-header">
+  <h1 mat-dialog-title class="dialog-header__title">Create Account</h1>
+  <mat-icon class="dialog-header__icon-close" (click)="onNoClick()">close</mat-icon>
+</div>
+<form mat-dialog-content class="dialog-content" #createAccountForm="ngForm">
+  <mat-form-field appearance="fill" class="dialog-content__input" >
+    <mat-label>Title</mat-label>
+    <input name="name" matInput [(ngModel)]="accountForm.name" minlength="3" required>
+  </mat-form-field>
+  <mat-form-field appearance="fill" class="dialog-content__input">
+    <mat-label>Currency</mat-label>
+    <mat-select [(ngModel)]="accountForm.currency" name="currency" required>
+      <mat-option *ngFor="let currency of currencies" [value]="currency">
+        {{currency}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field appearance="fill" class="dialog-content__input">
+    <mat-label>Description</mat-label>
+    <textarea matInput [(ngModel)]="accountForm.description" name="description" rows="5"></textarea>
+  </mat-form-field>
+</form>
+<div mat-dialog-actions class="dialog-actions">
+  <button mat-button (click)="onNoClick()" class="dialog-actions__button">Cancel</button>
+  <button mat-button [mat-dialog-close]="accountForm" class="dialog-actions__button button-purple"
+  [disabled]="createAccountForm.invalid" [ngClass]="{'disabled': createAccountForm.invalid}">Create</button>
+</div>

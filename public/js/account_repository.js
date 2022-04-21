@@ -10,13 +10,17 @@ class accountRepository {
   async create(req, res) {
     try {
       const belongsTo = req.params.id;
+      const { name, currency, description } = req.body;
       const account = new Account({
-        name: req.body.name,
+        name,
+        currency,
         belongsTo,
+        description,
       });
+      console.log(account);
       await account.save();
       await setAccount(belongsTo, account._id);
-      res.json("Account was added");
+      res.json(account);
     } catch (e) {
       res.json(e.message);
     }
