@@ -1,0 +1,23 @@
+.statistics {
+  display: grid;
+  grid-template-columns: 30% 45% 25%;
+
+  &__main__toggle {
+    width: 400px;
+    margin-bottom: 1em;
+
+    &__button {
+      width: 50%;
+      border-radius: 5px;
+      padding-left: 5px;
+
+      &__text {
+        margin: 0;
+      }
+    }
+  }
+}
+
+.active {
+  border: 1px solid #000;
+}

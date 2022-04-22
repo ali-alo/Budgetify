@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 
-// const Expense = require("./expenses");
-// const Income = require("./incomes");
-// const Category = require("./categories");
-
 const accountSchema = new mongoose.Schema({
   name: {
     type: String,
     uppercase: true,
+    required: true,
+  },
+  currency: {
+    type: String,
     required: true,
   },
   balance: {
@@ -27,6 +27,7 @@ const accountSchema = new mongoose.Schema({
     type: [mongoose.ObjectId],
     ref: "Expense",
   },
+  description: String,
 });
 
 // one user must not have two accounts with the same name

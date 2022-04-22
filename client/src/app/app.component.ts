@@ -8,8 +8,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  title = 'Budgetify';
-
   constructor(private authService: AuthService, private router: Router) {}
 
   get isLoggedIn(): boolean {

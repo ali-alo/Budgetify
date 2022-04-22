@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from '../auth/services/auth.service';
 
 @Component({
@@ -6,10 +6,8 @@ import { AuthService } from '../auth/services/auth.service';
   templateUrl: './not-found.component.html',
   styleUrls: ['./not-found.component.scss'],
 })
-export class NotFoundComponent implements OnInit {
-  isLoggedIn = this.auth.isLoggedIn();
+export class NotFoundComponent {
+  isLoggedIn: boolean = this.auth.isLoggedIn();
 
   constructor(private auth: AuthService) {}
-
-  ngOnInit(): void {}
 }

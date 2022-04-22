@@ -1,0 +1,14 @@
+<nav class="main-nav">
+  <a routerLink="/accounts" class="main-nav__logo">Budgetify</a>
+  <ul class="main-nav__links">
+    <li routerLink="/categories">Categories</li>
+    <li>Subscriptions</li>
+    <li>Obligatory</li>
+    <li routerLink="/statistics">Statistics</li>
+    <li *ngIf="isAdmin">Admin</li>
+  </ul>
+  <div class="main-nav__user" (click)="logout()">
+    <mat-icon>person_outline</mat-icon>
+    <h4 class="main-nav__user__name">{{ userFullName}}</h4>
+  </div>
+</nav>

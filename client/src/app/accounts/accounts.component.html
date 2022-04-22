@@ -1,3 +1,30 @@
-<app-nav></app-nav>
-<h2>Accounts works!</h2>
-<p>Implementation of it will be later in the next commits</p>
+<app-header></app-header>
+<div class="accounts-main">
+  <app-accounts-list></app-accounts-list>
+  <div class="accounts-main__transactions">
+
+    <app-search-box></app-search-box>
+
+    <div class="accounts-main__transactions-column">
+      <div class="accounts-main__transactions-column__filter-bar">
+        <button mat-flat-button class="accounts-main__transactions-column__filter-bar__button-sort">
+          <mat-icon class="accounts-main__transactions-column__filter-bar__button-sort__icon">sort</mat-icon> 
+          Transaction Date
+        </button>
+        <app-category-button [isIncome]="false" class="accounts-main__transactions-column__filter-bar__button-expense"></app-category-button>
+        <app-category-button class="accounts-main__transactions-column__filter-bar__button-income"></app-category-button>
+      </div>
+      <app-transactions-list></app-transactions-list>
+    </div>
+    
+  </div>
+  <div class="accounts-main__extras">
+    <app-add-button text="Add Transaction"></app-add-button>
+    <mat-icon class="add-account" (click)="openDialog()">add</mat-icon>
+      <p *ngIf="currency">
+        You chose: <i>{{currency}}</i>
+      </p>
+
+
+  </div>
+</div>

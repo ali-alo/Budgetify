@@ -2,11 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
-
-interface IUserToken {
-  token: string;
-  expiresIn: string;
-}
+import { IUserToken } from 'src/app/interfaces/IUserToken';
 
 @Injectable({
   providedIn: 'root',
@@ -25,8 +21,7 @@ export class AuthService {
   }
 
   logout(): void {
-    localStorage.removeItem('idToken');
-    localStorage.removeItem('expiresIn');
+    localStorage.clear();
   }
 
   isLoggedIn(): boolean {
@@ -41,5 +36,6 @@ export class AuthService {
     const expiresIn = Date.now() + Number(res.expiresIn);
     localStorage.setItem('idToken', res.token);
     localStorage.setItem('expiresIn', String(expiresIn));
+    localStorage.setItem('userId', res.id);
   }
 }

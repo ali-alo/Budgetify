@@ -1,0 +1,38 @@
+.main-nav {
+  margin: 2em 0 1em;
+  display: grid;
+  grid-template-columns: 30% 45% 25%;
+  justify-content: space-between;
+
+  &__logo {
+    font-weight: 600;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-decoration: none;
+    color: #000;
+    align-self: center;
+  }
+
+  &__links {
+    display: inline-flex;
+    padding-inline-start: 0;
+    
+    li {
+    list-style: none;
+    cursor: pointer;
+    margin-right: 2em;
+    }
+}
+
+  &__user {
+    display: inline-flex;
+    align-self: center;
+    justify-self: end;
+    cursor: pointer;
+
+    &__name {
+      margin: 0 0 0 0.3em;
+    }
+  }
+}
