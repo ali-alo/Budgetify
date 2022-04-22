@@ -9,6 +9,7 @@ import { AccountsComponent } from './accounts.component';
 import { AccountComponent } from './account/account.component';
 import { AccountsListComponent } from './accounts-list/accounts-list.component';
 import { AccountCreateComponent } from './account-create/account-create.component';
+import { AccountInformationComponent } from './account-information/account-information.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +17,7 @@ import { AccountCreateComponent } from './account-create/account-create.componen
     AccountComponent,
     AccountsListComponent,
     AccountCreateComponent,
+    AccountInformationComponent,
   ],
   imports: [
     CommonModule,

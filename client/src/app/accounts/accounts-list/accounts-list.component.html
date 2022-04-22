@@ -1,3 +1,5 @@
-<app-account *ngFor="let account of accounts" [balance]="account.balance" [name]="account.name" 
-(click)="chooseAccount(account._id)" [isActive]="account.isActive" ></app-account>
-<h1 *ngIf="accounts.length === 0">You don't have accounts yet, please create one</h1>
+<div class="accounts-list">
+  <app-account *ngFor="let account of accounts" [account]="account"
+    (click)="chooseAccount(account._id)"></app-account>
+  <h1 *ngIf="accounts.length === 0">You don't have accounts yet, please create one</h1>
+</div>

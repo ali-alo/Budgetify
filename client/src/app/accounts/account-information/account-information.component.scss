@@ -1,0 +1,48 @@
+.dialog-header {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  border-bottom: 2px solid black;
+  margin-bottom: 3rem;
+  
+  &__title {
+    display: inline;
+  }
+  
+  &__icons {
+    display: inline-block;
+    margin-bottom: 1rem;
+    text-align: center;
+    margin-left: auto;
+
+    &__icon {
+      cursor: pointer;
+      margin-right: 5px;
+    }
+
+    &__icon-close {
+      font-weight: bold;
+    }
+  }
+}
+
+.dialog-main {
+  
+  &__row {
+    border-bottom: 1px solid #000;
+    margin-top: 2rem;
+    padding: 0 3rem;
+    
+
+    &__heading {
+      display: inline-block;
+      margin: 0;
+    }
+
+    &__value {
+      display: inline-block;
+      margin: 0;
+      font-size: 1.2rem;
+    }
+  }
+}

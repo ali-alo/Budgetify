@@ -1,0 +1,29 @@
+<div class="dialog-header">
+  <h1 mat-dialog-title class="dialog-header__title">Account Information</h1>
+  <div class="dialog-header__icons">
+    <mat-icon class="dialog-header__icons__icon">edit</mat-icon>
+    <mat-icon class="dialog-header__icons__icon">delete</mat-icon>
+    <mat-icon class="dialog-header__icons__icon dialog-header__icons__icon-close" (click)="closeDialog()">close</mat-icon>
+  </div>
+</div>
+<div class="dialog-main">
+  <div class="dialog-main__row">
+    <h2 class="dialog-main__row__heading">Title:</h2>
+    <p class="dialog-main__row__value">{{accountInfo.name}}</p>
+  </div>
+  <div class="dialog-main__row">
+    <h2 class="dialog-main__row__heading">Ammount:</h2>
+    <p class="dialog-main__row__value">{{accountInfo.balance}}</p>
+  </div>
+  <div class="dialog-main__row">
+    <h2 class="dialog-main__row__heading">Currency:</h2>
+    <p class="dialog-main__row__value">{{accountInfo.currency}}</p>
+  </div>
+  <div class="dialog-main__row">
+    <h2 class="dialog-main__row__heading">Description:</h2>
+    <p class="dialog-main__row__value">{{accountInfo.description}}</p>
+  </div>
+</div>
+<div mat-dialog-actions class="dialog-actions">
+  <button mat-button (click)="closeDialog()" class="dialog-actions__button">Close</button>
+</div>

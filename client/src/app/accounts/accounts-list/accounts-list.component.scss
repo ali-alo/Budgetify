@@ -1,0 +1,9 @@
+.accounts-list {
+  overflow: scroll;
+  height: 81vh;
+  overflow-x: hidden;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
